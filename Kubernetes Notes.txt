@@ -1,0 +1,2217 @@
+https://www.redhat.com/en/technologies/cloud-computing/openshift
+https://docs.openshift.com/container-platform/4.6/architecture/architecture-rhcos.html
+https://www.redhat.com/en/technologies/cloud-computing/openshift/container-platform
+https://www.jenkins.io/
+https://developers.redhat.com/products/ansible/download
+
+vi editor
+
+i insert
+O insert on next line
+r replace
+d delete ( press twice after press esc to delete line )
+u undo   (simmilar to ctl z )
+x remove one charactor
+esc
+:q! quit withot saving
+:wq! quit and save
+/ search   (press n for next )
+? backward search
+
+
+kubectl expose deployment nginx --type=ClusterIP --port=8080 --target-port=80 --name=nginx-clusterip-svc
+
+kubectl run alpine --image=alpine --requests=cpu=200m,memory=256Mi --limits=cpu=400m,memory=512Mi
+
+kubectl create deployment ubuntu --image=ubuntu --replicas=2 -- sleep 500 --port=80
+
+kubectl create job whizlab --image=ubuntu -- sleep 200
+
+kubectl create cronjob whizlabs --image=ubuntu --schedule="* * * * *" -- sleep 300
+
+kubectl create role role123 --verb=get,list --resources=pods,services
+
+kubectl create clusterrole clusterrole123 --verb=get,list --resources=pods,services
+
+kubectl create rolebinding rb123 --role=role123 --serviceaccount=default:whizlabs
+
+kubectl create clusterrolebinding rb123 --role=clusterrole123 --serviceaccount=default:whizlabs
+
+kubectl create deployment nginx --dry-run=client -o yaml
+
+kubectl expose deployment nginx --type=ClusterIP --port-80 --name=nginx-svc --dry-run=client -o yaml
+
+kubectl create sa whizlabs --dry-run=client -o yaml
+
+kubectl run alpine --image=alpine --requests=cpu=200m,memory=256Mi --limits=cpu=400m,memory=512Mi --dry-run=client -o yaml
+
+kubectl create role role123 --verb=get,list --resources=pods,services --dry-run=client -o yaml
+
+kubectl create rolebinding rb123 --role=role123 --serviceaccount=default:whizlabs --dry-run=client -o yaml
+
+kubectl autoscale rs my-repl --min=2 --max=5 --cpu-percent=80
+
+kubectl get pod -l env=rt   ( or "type in (,)" ) --show-labels
+
+kubectl rolllout status/history/undo/pause/resume/ deployment mydepl --to-revision=1
+
+extra info in 3
+probe ( like failurethre... )
+deploy ( rollout strategy )
+job ( backoff limit... )
+
+first solve quiz of ingerss 2021 ,pvc quiz 
+solve killerkoda qs
+ mock lightnig labs
+
+mock2, lightling labs,helm, docker
+bhai qs
+
+create pv ,chronejob, job, serviceaccount, role binding networkpolicy ingress init containers resourses qotas 
+volumes configmap secret
+deployment replicaset pod labels container2 health check horizontal scaler service
+
+qoutas, role, rolebinding, pv, pvc,configmap,secret deployment 1containers,securitycontext, healthcheck,volumes, autoscale, service, ingress, networkpolicy
+
+1) pv, configmap secret role rolebinding resourse qoutas
+2) deployment with two containers use volume secret pv resources securitycontext health check horizontal scale
+3) init container pod job chronejobs helm, crd
+
+resources
+security context
+init containers
+
+
+
+What is Kubernetes
+
+Service for container cluster management
+
+Open Sourced by Google
+
+Support GCE, CoreOS, Azure,vSphere
+
+Used to manage Docker containers as a default implementation
+
+Kubernetes Architecture
+
+
+user  ---- docker hub(image repository)   nodes  ( worker node)
+ |                                                          nodes
+ |                                                         nodes
+ |
+Control Plane   -----
+  ( Master ) kubernatics main is running here
+
+worker node is runing with docker and back kubelet kube-proxy is running
+
+master give order to nodes to tell what should they do
+
+worker node are just machines manages by master
+
+kubelet kube-proxy is connect with  ( Master ) kubernatics main
+
+
+Kubernetes master
+
+control nodes
+we can also make multiple master nodes
+
+      kub master contains
+-databases key value pair
+-Scheduler ( decide which worker node is able to this task) 
+-controler manager (execute it what scheduler decided)
+-api server (generate connection between worker node to master)
+
+      kub worker node contain
+
+kube-proxy ( for comunication pod to pod ,node balance network traffic )
+runtime container (application which allow as to run container)
+kubelet  (manages running container should i run this or not)
+
+      Hitting moving target (manage continous change )
+
+kub can decide which container should run on which node
+if node fail
+group the all container running on different nodes and give them single ip address which user have
+kube-proxy make shore connections load balance
+by changing container to diff node only local ip change external ip remain same
+
+
+Benefits of kubernetes
+ops team doesnot need to deal with deploying your app
+have all benefits of containers
+less use of system administrator
+
+require 
+-docker
+-minikube ( make clusters with in system use for learning pupose )
+-kubernetes client 
+
+*commands
+minikube start
+minikube status (to check )
+kubectl cluster-info (clusters info)
+
+NODES
+group of server is called cluster
+
+*get info of all cluster( master worker)
+kubectl get nodes or kubectl get no
+
+* description of nodes
+kubectl describe node NodeName
+
+    PODS
+
+
+should have containerized application
+
+in kuber first create pod then run container in pod
+same container in pod have single ip
+every pod has it own ip address hostname
+each pod is separate logical machine
+pod can not be share always work in only one node
+
+why pod
+container run single application
+we need higher level construct that will allow you to bind containers
+  togather and manage them as a single unit
+
+allow to run closely related procrsses together
+
+kub provide containers almost the same enviroment as if they were all running in a 
+   single container,while keeping them isolated (not competly isolated)
+
+
+volume concept docker can also be used with in a pod
+each pod has a separate port space and ip
+
+-can run multi-tier app(database,back-end,front) into singe pot ?
+ No
+split is necessory
+sigle node will be utilize
+not taking advantage of computational resources(CPU memory)
+
+2 containers in 1 pod
+question
+do we need to run togather
+do they are diff components
+scaled togather or individually
+
+* info about kuber
+cd .kube/
+
+in kube config file (where ?)
+
+when we create pod with yaml
+
+two ways to create pod yaml is more descriptive way then other 
+
+kub can understand
+yaml  (human readible config files) recommended 
+jason javascript object notation) light weight data format
+
+sample structure of yaml have
+
+kind
+apiVersion  (current version canget from kub documentation
+Metadata
+spec
+status
+
+in kind we enter what we want to create
+#kind (OR type) can also create other
+ pod
+Deployment
+jobs
+Other
+
+#Metadata 
+Name 
+Namespace
+label
+other info about pod
+
+#spec  (contain the actual description of thepod content, such as)
+pod container list 
+volumes
+Security context
+
+#status (contain the current information about the running pod,such as
+
+pod condition
+every container's description
+pod's internal ip and other basic info
+
+
+creating file using vi myfirstpod.yaml
+
+kind: Pod
+
+apiVersion:v1 (should be same for pod creation)
+
+metadata:
+   name:firstpod1
+   labels: (if not run assign labels after pod creation)
+     env: prod
+      type: frontend
+spec:  
+  containers:
+    - name: container1
+      image: maaz786/maazd:v1
+      ports:
+        - containerPort:80
+
+
+*create first pod using yaml file
+kubectl create -f myfirstpod.yaml
+
+*create for first time 
+use apply instead create for second time and as well as first time after changes
+
+kubectl apply -f myfirstpod.yaml
+
+*to see pods short key
+kg get po
+
+*to see yaml code of any created pod
+kubectl get pod firstpod1 -o yaml
+
+*to see all info about pods (not running)
+kubectl get pod -wide
+
+*transfer yaml file content to newfile
+kubectl get pod firstpod1 -o yaml > NewFile.yaml
+
+*to cunnect pod to terminal
+kubectl exec -it shell-demo -- /bin/bash
+ 
+
+*create pod without creating yaml file kubectl run pod2 --image=maaz876/maazd:v1 --port=80 --restart=Never
+                     
+POD2 => yourNewPodName
+maaz876/maazd => any imageName
+port => ImagePort 
+
+sir recommend create yaml file which is changible
+test command is better
+
+*give your own port to the created pod
+kubectl port-forward pod2 8055:80
+exit from shell through ctrl+z
+
+Labels
+
+Uptil now we have successfully create a pod having one container
+
+theoratically we have learnt that kubern does help creating nth number of replicas (containers or pods)
+
+theotatically we have learnt that kubern can group pods providing at a single static ip address
+
+think of situation where you have hundred of pods with multiple replicas
+
+we do replicas to scale the app and use labels to know where or how many they are
+
+kubern organize pods with the help of labels
+
+labels are simple key/value pair that kubern uses with almost all the resources(pods,jobs...) it creates to group
+
+kubern give option to filter the resources by providin label criteria
+
+multiple labels can be assigned to any resource and they become part of resource
+  group having with same labels
+
+at a time of resource creation or even  you can assign 
+     or change label value after creation of the resource
+
+
+*creating file using vi myfirstpod.yaml with labels
+
+kind:Pod
+
+apiVersion:v1
+
+metadata:
+  name:firstpod1
+  labels:
+    type:backend
+    env: production
+
+spec:
+  containers:
+    - name: container1
+      image: maaz786/maazd
+      ports:
+        - containerPort:80
+
+*or with this
+kubectl create -f myfirstpodwithlabel.yaml
+
+*for dry run
+kubectl create -f myfirstpodwithlabel.yaml --dry-run
+to check if pod will be created before  its creation
+
+*create pod without creating yaml file with label
+kubectl run podwithlabel2 --image=maaz876/maazd:v1 --port=80 --restart=Never --labels=type=frontend,env=develop
+
+cant acces through exec command in compeleted status pods. why???
+
+
+*get list of pods which have labels
+kubectl get pods --show-labels
+
+*to make label as column
+kubectl get pods -L env,type
+
+
+*Labels pod which are they already running
+kubectl label pod myfirstpod app=helloworld type=frontend
+
+myfirstpod ==> already created pod
+app=helloworld type=frontend ==> new labels
+
+*Modifying existing labels of existing pods
+kubectl label pod myfirstpod type=backend --overwrite
+
+*get list of pods which have labels
+kubectl get pods --show-labels
+
+Pods listing with label Selector
+
+Label selector can be used as criteria for filtering any resources
+
+we can use label as criteria to check if
+ contain(or doesnot contain) a label with a certain key
+ contains a label with a certain key and value
+ contains a label with a certain key, but with a value not equal to the one you specify
+ contain (or doesnot contain) any one of 
+   supplied value in any particular label key
+
+contains a label with a certain key/value
+
+*to just see the name of pod which have labels
+kubectl get pod -l type=fronend
+
+-l is used to see only label's pods
+
+*to see the name of pod which have labels with what label they have
+kubectl get pod -l type=fronend --show-labels
+
+*search to labels pod at atime with -l feature
+kubectl get pod -l type=fronend,env=test
+
+*
+kubectl get pod -l type=fronend,env=test --show-labels
+
+*to just see the name of pod which donot have spacific labels
+kubectl get pod -l type!=fronend
+
+!= is use for this
+
+*to see the name of pod which donot have labels with what label they have
+kubectl get pod -l type != fronend --show-labels
+
+*Does contain a label irrespective of the value
+kubectl get pod -l type --show-labels
+
+*Does not contain a label irrespective of the value
+kubectl get pod -l '!type' --show-labels
+
+'!type'is use for this
+only single quote use ' ' 
+
+*when you want to find all pods which have more values ( like frontend , backend) of single key (like type)
+kubectl get pod -l 'type in (backend,frontend)' --show-labels
+
+*when you want to find all pods which donot have more values ( like frontend , backend) of single key (like type)
+kubectl get pod -l 'type notin(backend,frontend)' --show-labels
+
+'type notin(backend,frontend)'
+
+PODS Scheduling with NODE Selector
+
+if we want to deploy spacific pod to spacific node(worker)
+ we set values in spec in pods' .yaml files
+
+new code
+spec:
+  nodeSelector:
+    disk_type:'ssd'
+
+this will deploy this new pod on a worker node where label is ssd
+ (kis pod ko kis node p deploy krna h through its label)
+
+################# .yaml file
+kind:Pod
+
+apiVersion:v1
+
+metadata:
+  name:firstpod1
+
+spec:
+  nodeSelector:
+    disk_type:'ssd'
+
+  containers:
+    - name: container1
+      image: maaz786/maazd
+      ports:
+        - containerPort:80
+
+
+ANNOTATION
+
+use for coment (just for extra information)
+
+annotation are basically words that explanation or comment on something
+
+for example, annotation can be used to write creator's name or 
+ contact or about application it running
+
+labels are meant to hold limited information whereas you can have larger
+annotation with any resource
+
+cannot be use as labels 
+add in matadata 
+number should be in string '49339'
+
+
+################# .yaml file
+kind:Pod
+
+apiVersion:v1
+
+metadata:
+  name:firstpod1
+  labels:             ----------------------labels
+    type:backend
+    env: production
+   annotations:   ----------------------annotations
+    createdBy=Maaz
+    email: maaz@gmail.com
+spec:
+  nodeSelector:
+    disk_type:'ssd'
+
+  containers:
+    - name: container1
+      image: maaz786/maazd
+      ports:
+        - containerPort:80
+
+exact example yaml file; running fine
+kind: Pod
+apiVersion: v1
+metadata:
+  name: podsofsaad
+  annotations:
+    createdby: saadk
+    email: saad946.com
+  labels:
+    type: database
+    env: backend
+spec:
+   containers:
+     - name: contsaad
+       image: nginx:latest
+
+*by using command give annotation
+kubectl annotate pod myfirstpod createdBy="maaz" email="qs@gmail.com"
+
+*if we want to see annotation we need to see .yaml file of resource(pod) 
+can not filter them out like labels
+kubectl get pod myfirstpod -o yaml
+
+*Describing POD's insights
+Kubectl describe pod AnyPodName
+    using above command from event we can see errors if we have
+
+*NameSpace
+
+k8s  group objects into namespaces
+namespaces is a kind of virtualbox which isolates self contain resources with other namespaces
+you can filter the resources scope of resources using namrspaces
+e.g resources in namespaces for development phase
+can not harm resources in namespaces for production
+similarly you can split them into multiple namespaces, which allows you to use the same 
+resource naames multiple times (across diff namespaces)
+namespaces s different environment create krskte within same cluster
+different env m filter out krne k lye
+
+Environments types: can be manage through namespaces within same cluster, 
+phr kuernetees k resouces ksi khas env m deploy krskte n
+ar resouces ko un namespaces m deploy krte
+
+user accepatance: jhn client app run krk check kre/customer apni testing krta
+production: real time m application run horai h
+development: jhn developer code built krte 
+QA: QA product k testing krt
+with labels we have seen how easy is a group resources
+ but what if any label overlaps
+
+name of particular resource will always be unique what about 
+ setting the similar enviroment as production when in development, QA phase
+
+but what about times when you want to split object into separate,
+  non-overlaping groups? you may want to only operate inside one group at a time
+
+by default NameSpace is default
+
+many containers in pod many pods in namespace
+
+*TO create namespace 
+kubectl create namespace production
+
+*to see all namespaces
+kubectl get namespace
+
+*to create a pod in any particular namespace
+kubectl run myfirstpod --image maaz876/maazd --restart=Never --namespace=production
+
+*
+kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client -- /bin/sh -c 'echo hello;sleep 3600' > pod.yaml
+vi pod.yaml
+
+ maaz876/maazd == imageName
+--namespace=production    namespace name
+
+*to get any resource from any particular namspace
+kubectl get pod --namespace production
+kubectl get pod -n production
+
+*to get any resource from all namespace
+kubectl get pod --all-namespace
+kubectk get pod -A
+
+example with yaml file
+
+kind: Pod
+apiVersion: v1
+spec:
+   containers:
+     - name: contsaad
+       image: nginx:latest
+metadata:
+  name: podsofsaad
+  annotations:
+    createdby: saadk
+    email: saad946.com
+  labels:
+    type: database
+    env: backend
+  namespace: production
+
+pods name can be same if their namespace is different (like pod4 in production and another pod4 in testing namespace)
+
+*Deleting a resource(pod,job,node.. ) from default namespace
+kubectl delete pod myfirstpod
+
+*delete pod from spacific namespace
+kubectl delete pod myfirstpod --namespace production
+
+*delete with respect to labels
+kubectl delete pod -l 'type in(frontend,backend)'
+
+*delete all pod from default
+kubectl delete pod --all
+
+*delete pod of some specific namespace
+kubectl delete pod --namespace production
+
+*delete namespace
+kubectl delete ns production
+
+*ReplicaSets
+
+ReplicasSet is also one of the resource in kubern like pods and others are
+
+ReplicasSet is the resource that help creating and managing multiple
+  coplies of application (replicas) in kuber
+
+when we create any pod through ReplicaSet it ensures its pods are always kept running
+
+if the pod disappears for any reason such as
+
+   if the worker node disappears from the cluster
+   if the pod was evicted from the worker node
+
+now we are not creating pods directly we are replicaSet and kub will 
+  create pods 
+
+you have  2nodes 
+node1 have 2 pods 1 is created using replicaset
+node2 have many other pods
+
+if node1 shutdown the replicas creted pod move to node2
+replicaset make shure its pod are kept running
+
+
+
+A ReplicaSet has three essential parts
+
+1 Label selector
+   Determine what pods are in the Replicaset scope
+
+2 Replica count
+  Specifies the desired number of pods that should be run
+
+3 Pod template
+   ReplicaSet uses to create new pod .yaml file
+
+######################## yaml file
+apiVersion:apps/v1      ----for replicas
+kind:ReplicaSet
+
+metadata:
+  name:my-first-replicaset
+
+spec:
+replicas:3  -----these replica will be created
+
+selector:    --------------must match or else infinite pod will
+                                      will be created
+  matchLabels:
+     app:myapp
+
+template:  ------------ if new pod created with replica it should have
+                                  below data is its yaml file
+  metadata:
+    labels:     -----------must same as (matchlabels)
+      app:myapp
+   spec:
+      containers:
+        - name: container1
+         image: maaz786/maazd
+          ports:
+              - containerPort:80
+
+*to get list of replicas
+kubectl get rs
+
+Desired      current                              ready
+we want     currently running          all in good state(demage or not)
+
+*to see all replicas pod
+kubectl get pod
+
+*let manually delete one pod and check what effect it get on pod listing
+kubectl delete pod PodName
+
+*replicas and pod in one search
+kubctl get rs,pod
+
+*description of rs pod
+kubectl describe rs MyReplicaPodName
+
+when you change the label or delete the pod replicas always
+    create new pod to match your desire pod numbers
+same way when you change the label of any pod to match replicas label
+   it will automatically delete any previous to match your desire pod numbers
+
+*to edit the yaml file of pod
+kubectl edit pod PodName(complete)
+
+                                MaltiLabelReplicas
+We use matchLabels in selector of ReplicaSet configuration in
+  which we can add multiple labels
+
+Based on those labels replicaSet will look for pods that have
+  all those labels togather and group them
+
+in Replicaset you can even add additional expression to the selector
+
+
+
+######################## yaml file
+apiVersion:apps/v1      ----for replicas
+kind:ReplicaSet
+
+metadata:
+  name:my-first-replicaset
+
+spec:
+replicas:3  -----these replica will be created
+
+selector:    --------------must match or else infinite pod will
+                                      will be created
+  matchExpressions:  ------ MultiLabel
+    - key: app
+       operator: In
+        values:
+          -myapp
+
+template:  ------------ if new pod created with replica it should have
+                                  below data is its yaml file
+  metadata:
+    labels:     -----------must same as (matchlabels)
+      app:myapp
+   spec:
+      containers:
+        - name: container1
+         image: maaz786/maazd
+          ports:
+              - containerPort:80
+exact yaml file code
+
+controlplane $ cat replicaset.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs2
+spec:
+  selector:
+    matchLabels:
+      rs: rso
+  replicas: 2
+  template:
+    metadata:
+      name: rs2pod
+      labels:
+        rs: rso
+    spec:
+      containers:
+      - name: rs2container
+        image: aamirpinger/helloworld
+        ports:
+        - containerPort: 80
+
+
+in online k8s play ground you cant host web or port forward  qk wo ports apk pc k ni h
+
+
+
+ There are 4 operators for match Expression
+In
+Notin
+Exist
+DoesNotExist
+
+it is important to remember that if you specify both matchLabels
+  and mathExpressions then all the labels must match to group the resource
+
+All of the three parts of Replicaset can be modified at runtime
+
+only changes to the replica count will affect existing pods
+
+changes to labels selector and pod template in replicaset will onlyaffect new containes
+
+Due to changes in the label selector or pod label itself,iff 
+   existing pods fall out of the scope of the replicaset, so the ontroller stops
+   stop caring about them
+
+Pod Scaling
+
+ReplicaSet make sure a desired number of pod instance is always running
+scaling number of pods up and down can be done anytime
+if you will scale up,ReplicaSet will add more pod
+if you will scale down, ReplicaSet will terminate pods to mmatchthe number
+
+*
+kebectl scale rs my-replica-set --replicas=5
+kubectl get rs
+kubectl scale rs my-replica-set --replicas=2
+
+
+Even if you delete or add a pod manually with the same labels
+  used by replicaset to group the pods, it will automatically add
+  or terminate pods to match the exact numbers provided to replics
+
+when we delete replicaset all the pods under that replicaset will also
+  get terminated
+
+kubern does provide --cascade=false option for deleting
+  only replicaset and not the pods under it
+
+Horizontal Pod Autoscaler
+
+to make kubern decide itself of how many replicas are needed
+  at the moment, we can do that using kubern Horizontal Pod Autoscaler
+
+Based on some algorithm kubern decides how many replicas
+  are needed to handle the load
+
+we do provide min and max pods limit and whitin that kubern
+  does pod scaling and on what % of cpu utilization it creates/delete pods
+
+*
+kubectl autoscale rs my-replica-set --min=2 --max=2 --cpu-percent=80
+                                      
+my-replica-set   ( AnyNameYouWant ) or ( any already created ReplicaName )
+--cpu-percent=80 ( means if cpu usage cross 80% create new pod,
+        if traffic is low it will decrease pod quantity with making sure cpu utilization not exceed defined percent )
+
+*to see all autoscaler
+kubectl get hpa
+
+   JOB
+
+job basically pod hi hlekin pod mapplication always runnng state mht hn customer koserve klye
+jbk job k case m pod kch specific task perform krta ar terminate hojta, basically pods ko helpout k lye ya
+application ko support krne k lye
+
+example-1 data back up krne k lye linux script ka container
+example2- banktransation data maintain laisure mreal timear monthly transattion record will be job pod
+ 
+job is another resource in kubernetes
+its basically a pod which we create under the type (kind) of job
+
+A job resource is used to create a pod which terminates automatically
+  when the define job of that pods successfully completed
+
+
+a job resource creates one or more pods and ensures that
+  a specified number of them successfully terminate
+
+
+the job object will start a new pod if the first pod fails or is deleted
+  (for exemple due to a node hardware failure or a node )
+
+a job can also be used to run multiple pods in parallel
+
+deleting a job resource will cleanup the pods it created
+
+
+apiversion: batch/v1  ----for job
+kind:Job
+metadata:
+  name:whalesay
+spec:
+  template:
+    spec:
+      containers:
+      - name: whalesay     -------anyName
+         image: docker/whalesay   --------ImageName        command: ["cowsay","this is a kubernetes job!"]
+       restartPolicy: Never
+   backofflimit: 4
+   activedeadlineSeconds: 60
+
+exact yaml file:
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: whalesay
+spec:
+  template:
+    spec:
+      containers:
+        - name: whalesay
+          image: docker/whalesay
+          command: ["cowsay","this is a kubernetes job!"]
+      restartPolicy: Never
+  backoffLimit: 4
+  activeDeadlineSeconds: 40
+
+
+
+restartPolicy: Never or OnFailure is allowed
+
+OnFailure - the pod stays on the node, but the Container get a restart, 
+                     agr container related koi issue aya,image m koi issue aya,to wo resatrt krega pod
+Never - the job controller starts a new Pod and leave the unsuccessful pod as it is
+
+if its an error in docker or image then above restartpolicy work
+command -go to terminal and write what you provided
+
+backofflimit - specify the number of retries before considering a job as failed
+                      - 6 is default retries set back-off limit by kubern
+                      - failed pods associated with the job are recreated by the job controller with 
+                                with an exponential back-off delay(10s,20s,..) capped at six minutes
+                      - itni limit tk wo try krega phr job failed consider hogi
+
+activeDeadlineSeconds - applies to the duration the job
+                                             - once a job reaches activeDeadlineSecond all of its pods are 
+                                                     terminated and the job status will become type:
+                                                      failed with reason: DeadlineExceeded
+                                              -itni der tk try krega job k run hne k lye/intezar m betha ni rhega
+
+*create job 
+kubectl create -f job.yaml
+
+*to see list of pods and job
+kubectl get po,job
+
+*discription of specific job
+kubectl describe job CreatedJobName
+
+*to see the logs
+kubectl logs PodName
+ parallesim- agr parallel jo done  hti
+  completed- running ni qk usne wo command shell p execute kre ar job then completd
+
+
+CRONJOB  (schaduled job)
+
+automatically job execute hogi
+This works almost similar to kubern job resource
+
+only difference is job resouece create pod instantly and once
+    job is completed it does not recreate job resource or pod
+
+Cronjob resource is used to schedule job at later time and can
+    be set to initiate the job again on provided time gap
+
+CronJob always creates only a single job resource for each 
+     execution configured in the schedule
+
+##################yaml file
+apiVersion: batch/v1beta1  ----for job
+kind:CronJob
+metadata:
+  name:batch-job-minute
+spec:
+  schedule: " * * * * * "
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: periodic-batch
+         spec:
+           restartPolicy: Never
+           containers:
+           - name: whalesay     -------anyName
+              image: docker/whalesay   --------ImageName
+              command: ["cowsay","this is a kubernetes job!"]
+
+*
+kubectl run usjob --image=busybox -n=uit -- /bin/sh -c "echo hllo;sleep 20;echo world"
+kubectl logs busjob -n uit
+kubectl logs usjob -f -n uit
+
+/bin/sh -c echo hello;sleep 20;echo world
+*create cronjob.yaml file by cammand
+kubectl create -f cronjob.yaml
+
+kubectl run sjob --image=busybox --restart=Never -n=uit -o yaml --dry-run=client -- /bin/sh -c "echo hllo;sleep 20;echo world" >job1.yaml
+
+
+
+Schedule pattern
+       *                           *                               *                                   *                                               *
+minutes(0 to59) Hours(0 to 23) Day of Month (1 to31) Month of year(1 to 12) day of week ( 1 to 7)
+
+if you place * in place of time means every time 
+ 
+for 5am to 5pm
+0 5,17 * * *
+
+every minute
+* * * * *
+Every midnight in weekdays
+ 0 0 * * 1-5
+
+Every 15 minutes
+*/15 * * * *
+
+Every hour of alternative days
+0 * */2 * *
+
+
+Service (giving ips)
+
+when we create pod, our application is not accessible to outer world
+
+we then used kubectl port-forward to forward the pod
+
+port-forward command solve our problem by making single 
+  specified pod to outer world
+
+think of the situation where you have hundreds of pods
+  and each pod have multiple copies
+
+in the situation where you have hundred of pods and each pod 
+  have multiple copies
+
+in the situation like that port-forward is not the best option to use
+
+instead we create a resource provided by kubern called service
+
+We have learnt that every pod has it own ip address
+
+we have learnt that kubern can group pods providing at
+  a single static ip address
+
+Service resource is the one which is used to create a single,
+  constant point of entry to a group of pods
+
+each service resource has an ip address and port that never
+  changes while the service resource exists
+
+By using that ip and port provided by service resource, we can
+  access our application
+
+Even if pod moves around the cluster, service ip donot change 
+  and you get diverted to the new location where the pod is rescheduled
+
+
+External client                                 frontend service
+                                                            ip 1.1.1.1
+                             frontend pod1    frontend pod2       frontend pod3   
+                               ip:2.1.1.1                ip:2.1.1.2                  ip:2.1.1.3
+
+
+                                                                Backend service
+                                                                ip 1.1.1.2
+
+                                                                 Backend pod
+                                                                 ip: 2.1.1.4
+
+Both frontend and backend app components are exposed with
+  kubern service resource
+
+That means, even frontend and backend pods ip address changes
+  in case of relocation or recreation,user can extreamly or app
+  can intenally communicate with each other without any hazzel
+
+
+Service resource has many types, few of them are
+Cluster IP
+Node Port
+Load Balancer
+External Name
+
+Cluster IP
+Exposes the service on the internal ip in the cluster
+this type makes the services only reachable from within thecluster
+we can check it by minikube ssh and than cluster:port
+for backend pods
+
+NodePort:
+Expose the service on the same port of each selected 
+  node in the cluster
+port range is 30000 to 32767
+makes a service accessible from outside the cluster using
+  <NodeIP>:<NodePort>
+
+LoadBalancer:
+Create an external load balancer for traffic
+Assign a fixed, external IP to the Service
+front end
+
+ExternalName:
+To create a service that serves as alias for an external service
+Let's say your database is on AWS and it has the following url
+  test.database.aws.com
+By create externalname you can have let's say my-db diverted to
+  test,database.aws.com
+
+my-svc.yaml
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: my-service
+spec:
+  ports:
+  -  port: 8080
+     targetPort: 80
+  selector:
+       app: myapp
+  type: LoadBalancer
+
+exact serv.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: serv-make
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 80
+  selector:
+    rs: rs1
+~            
+
+For example you want to make a service of a mongodb
+  database which is hosted at mlab.com
+
+by creating external service you donot need to use your mlab
+  path to use your database, instead you will use service name
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: my-service
+spec:
+  type: ExternalName
+  externalName: ap12.mlab.com
+
+## to be discuss later
+
+*create service by using command
+kubectl expose rs myrs --port=8000 --target-port=80 --type=LoadBalancer
+  --name my-svc --selector=app=rs-example
+
+*to see services
+kubectl get svc
+
+
+Health Check
+
+one of the main benifits of using kubernetes it keep our container
+  running somewhere in the cluster
+
+But what if one of those containers dies? what if all container
+ of pod die?
+
+if app container crashes because of bug in your app, kebern will
+   restart your app container automatically
+
+but what about those situation when your app stop responding
+ because it fall into an infinite loop or a deadlock
+
+kubern provide use way to check health of you application
+ 
+
+
+Liveness Prob
+
+pods can be configured to periodcally check an application's
+  health from the outside and not depend on the app doing it internally
+
+you can specify a liveness prob for each container in the pod specification
+
+kubern will periodically execute the probe and restart the
+ container if the probe fail
+
+IMP POINT: container is restarted means old one is killed and
+  a completely new container is created-- its not the same container
+  being restarted again
+
+there are three types of probe
+
+1. HTTP GET 
+
+this type of probe send request on the container's ip address
+  a port and path you specify
+
+probe is considered a failure and container will be automatically
+ restarted if
+-prob receives error response code 
+-container app doesnot respond at all
+
+2. TCP SOCKET
+
+tcp socket probe tries to open a tcp connection to the specified port of
+ the container
+-if the connection is established successfully the probe is successful
+-otherwise the container is restart
+
+3. EXEC Probe
+
+An exec probe executes some commands you provide inside the
+  the container and check the command's exit status code
+
+-if the status code is 0,the probe is successful
+-All other codes are considered failure
+
+mypod-exec.yaml
+apiVersion:v1 (should be same for pod creation)
+
+metadata:
+   name:firstpod1
+   labels: (if not run assign labels after pod creation)
+     env: prod
+      type: frontend
+spec:
+  containers:
+    - name: container1
+      image: maaz786/maazd:v1
+      ports:
+        - containerPort:80
+     livenessProbe:   ----------these command will execute
+       exec:
+         command:
+        - cat
+        - /tmp/healthy
+
+############## mypod-tcp.yaml
+apiVersion:v1 (should be same for pod creation)
+
+metadata:
+   name:firstpod1
+   labels: (if not run assign labels after pod creation)
+     env: prod
+      type: frontend
+spec:
+  containers:
+    - name: container1
+      image: maaz786/maazd:v1
+      ports:
+        - containerPort:80
+     livenessProbe:   ----------these command will execute
+       tcpSocket:
+         port: 80
+
+apiVersion:v1 (should be same for pod creation)
+
+########### http.yaml
+metadata:
+   name:firstpod1
+   labels: (if not run assign labels after pod creation)
+     env: prod
+      type: frontend
+spec:
+  containers:
+    - name: container1
+      image: maaz786/maazd:v1
+      ports:
+        - containerPort: 80
+     livenessProbe:   ----------these command will execute
+       httpGet:
+          port: 80
+          path: /
+        failureThreshold: 3  ------this tells to restart the container in
+                                                     case of 3 consecutive failure
+        periodSecond: 10    ----------run this livness prob every 10 second
+        successThreshold: 1  --- reset the failure threshold counter
+                                                       on 1 successful response
+        timeoutSeconds: 1   ---- waiting time for response
+        initialDelaySecond: 15  ----- kubern will wait for 15 sec to 
+                                                          start first liveness probe
+
+Readiness Probe
+
+we have just learned about liveness probes and how they help keep your 
+    app healthy by ensuring unhealthy containers are restart automatocally
+
+similar to liveness probes, kubern allows you to also define a readiness probe
+  for your pod
+
+the readiness probe is invoked periodically and determines whether the
+  specific pod should receive client request or not
+
+when a container's readiness probe returns success. it signaling that the
+  container is ready to accept request
+
+
+this notion of being ready is obviosly something that specific that's 
+  specific to each container
+
+Same as liveness probe kubern send request to container and based on
+  the result either successful, unsuccessful response it decides container is
+  is ready to take trafic or still getting ready for that
+
+unlike liveness probe, if a container fails the readiness check, it willnot
+  be kill or restart
+  
+it is good practice to always add readiness probe even its a simplest app
+  in the container
+
+
+three type
+
+http , tcp, exec work same as livness
+
+
+Volume
+
+container contains its own directories and files
+
+if for any reason kubern restart any container, all files will be lost
+  that we might created at rubtime (log files)
+
+volume in kubern can be thought of sharred directory for 
+  the container in a pod at a pod level
+
+pod level mean the life of that volume is dependent on
+  pod's life, if pod restart all the files will be lost
+
+shared directory means all the container of that pod can share
+  that directory and the files in it
+
+
+volume are not standalone kubern object and cannot be created
+  or delete on their own
+
+kubern volumes are a component of a pod and are thus define in the
+  pod specification -must like containers
+
+A volume is available to all containers in the pod, but it must be
+  mounted in each container that needs to access it
+
+volume name must start and end with alphabets
+
+emptyDir
+configmap, secret, downward api
+persistentvolumeClaim 
+gitrepo
+gcePersistentDisk
+awsElasticBlockStore
+azureDISk
+
+
+
+metadata:
+   name:firstpod1
+   labels: (if not run assign labels after pod creation)
+     env: prod
+      type: frontend
+spec:
+  volume:
+  - name: share-dir
+     emptyDir: {}
+
+  containers:
+    - name: container1
+      image: maaz786/maazd:v1
+      ports:
+        - containerPort:80
+       volumeMounts:
+        - name: share-dir
+          mountPath: /data   or /var/c-two
+
+     livenessProbe:   ----------these command will execute
+       tcpSocket:
+         port: 80
+
+
+volume create then mound
+
+Presistent Volume
+
+Volume were great as they saves us from data lost incase
+  of container restart
+
+volume hold data at a pod level but question may asked what
+  for any reason kubern terminates the pod eg rescheduling
+
+in the case of pod termination data in the volume will be lost
+
+to solve this issue kubern provides us option of 
+  persistent volume
+
+to solve this issue kebern provides us option of persistent volume
+
+persistent volume add a volume at a cluster level instead
+ pod level
+
+we create a persistent volume resource in which we offer cluster level
+  volume that can be used by any pod
+
+any pod can use that persistent volume remains available
+  outside of the pod lifecycle
+
+that mean volume will remain even after the pod is deleted
+
+this volume will be available to claim by another pod
+  if required, and the data is retained
+pod => persistent volume claim => persistent volume
+
+   persistent volume claim
+
+it is a kind of formal request from user for claiming a persistent
+  volume
+a persistent volume claim describe the amount and characteristics
+  of the storage required by the pod
+
+based on requirement from user pvc find any matching 
+  persistent volume and claims it
+
+Depending on the configuration options used for persistent
+  Volume resource, these pv resource can later be used/claim
+  by the pods
+
+Persistent volume in action
+
+we will be now creating pv,pvc and pod
+
+we will be using minikube ssh to check files pv saving on cluster
+
+ssh, or secure shell, is a protocol used to securely log onto
+  remote system
+
+it is the most common way to access remote linux servers
+
+for any resource yaml file there are 4 part which we write
+  kind, apiVersion, metadata, spec
+spec part of pv carries few special thing link accessMode
+  and persistentReclaimPolicy
+  
+let discuss these rwo before we got to further writing yaml
+
+persistent volume access model
+
+type of aceess medel
+ readwriteOne
+   only single node can mount the volume for reading and writing
+
+  readOnlyMany
+    multiple nodes can mount the volume for reading
+
+  readwriteMany
+    multiple nodes can mount the volume for both reading and writing
+
+RWO,ROX, RWX pertain  to the number of worker nodes
+
+assignment
+create replicasetwith pods and container diff images with volume,livness
+
+
+##################################
+
+Authentication
+kube apiServer provide access to all 
+  etcd cluster, kubelet, kube scheduler, kube proxy
+  kube controller manager
+
+
+
+authentication between
+
+ admins, developers, boots    , end user
+
+
+create service
+*kubectl create serviceaccount sa1
+
+auth mechanism use to verify on following basis
+
+static password, static token file, certificates
+
+* for static password
+
+*vi user-detail.csv
+password123,user1,u0001
+password124,user2,u0002
+
+
+kube-apiserver --basic-auth-file=user-details.csv
+
+kube-apiserver.service
+--basic-auth-file=user-details.csv
+
+
+* for token file
+
+vi tocken-user.csv
+   123erfghj765,user1,group1
+    234567i8jbhv,user2,group1
+
+kube-apiserver --token-auth-file=tocken-user.csv
+
+kube-apiserver.service
+--basic-auth-file=user-details.csv
+
+
+vi /etc/kubernetes/manifests/kube-apiserver.yaml
+
+
+
+for token auth
+curl -v -k htttps://master-node-ip:6443/api/v1/pods 
+                 --header "Authorization: Bearer 234567890dr"
+
+- not recommonded way to mechanism
+
+
+  kubeconfig file
+
+ in this file we manage previous users 
+
+clusters:
+ name of different clusters
+
+context:
+ name list of uzers in related to all cluster u name
+
+users:
+ name of users
+
+*
+kubectl config view
+* to change current-context
+kubectl config use-context prod-user@production
+   
+API Groups
+type of api
+/metrics , /healths , /version , /api , /apis, /logs
+ 
+core
+api
+v1
+all resource
+
+node 
+c
+
+named 
+apis (api group )
+/app     /extension    /network  /storage     / certificates
+
+each api has own diff resources
+
+create proxy for creating athantication
+kubectl proxy
+
+ 
+Role based Access Controls
+kubectl auth can-i create deployments
+kubectl auth can-i delete nodes
+kubectl auth can-i create deployments --as dev-user
+kubectl auth can-i create pods --as dev-user
+
+
+
+types to identify 
+
+kube-apiserver
+static password  token file   certificates identity sevices
+
+--basic-auth-file=user.csv
+
+contex-client ko cluster s bind.3 cluster to 3 env yni 3 cluster 
+cluster 
+user-apk system ka, hmre user ko bind k ly
+hr question ko uske contex mean ja ke krna 
+
+*to see resource of default namespaces
+kubectl get resourcequotas
+
+*to see resource of all namespaces
+kubectl get resourcequotas -A
+
+RBAC
+first create developer-role yaml
+                      devuserbinding yaml
+cluster roles
+      cluster-roles yaml
+      cluster-role-binding yaml
+                            also for name space
+
+
+Admission controllers
+
+when need more control on images users
+
+Always pull images
+default storage class
+event rate limit
+namespace exist
+more
+
+mutating admission controllers
+automatically update or change value 
+need server to do mutations like ( webhook server )  go languange
+
+api version
+always run preferd version
+all version object is stored
+
+api deprecations (deletition of previous realeses)
+by following 4 roles 
+updation of apiVersion
+need (kubectl convert) command not avalable by default need to download
+
+
+https://kubernetes.io/docs/reference/using-api/deprecation-policy/
+
+CRD is used to create own resources
+
+apiversion
+kind
+metadata
+spec
+   (scope) Namespaced ( anywhere in cluster can create this nsew resource
+group: specific api where we want to send this infi
+names:
+ kind: any name like ( pod,job )
+ singular:   ( we use )
+ plural: withs  ( kubern use )
+ shortname :
+   -
+versions:
+ - name: 
+ served: current version
+ storage  (from many version only one become storage)
+schema:
+ 2 time types then properties
+ 
+custom controllers used to monitor of any spacific resource
+ not to create in ckad
+
+operator is used to combine both CRD, Custom controller 
+  operators are available
+
+blue/ green deployment  
+
+create both
+ 
+blue ( old version replicas)  green (new version replicas )
+
+then just change sellector in service to version 2 green replicas
+
+
+helm search wordpress
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm search repo joomla
+
+helm list  ( running)
+helm repo list 
+
+helm install bravo bitnami/drupal
+
+helm uninstall bravo
+
+helm pull --untar bitnami/apache   (only pull like image )
+
+
+canray
+ create one version replica with same seloctor as old version 
+connect them through 
+
+All revision previous
+helm
+crd
+service account
+docker commands
+taints and tolerations
+monitoring
+pvc test
+init multi container
+storage in statefulset
+2021
+practice
+
+maaz@DESKTOP-8INOQC6:~/my1pod$ k get po
+NAME         READY   STATUS             RESTARTS       AGE
+pod2         0/1     ImagePullBackOff   0              5h58m
+saadpod      1/1     Running            0              26m
+saadpod2     1/1     Running            0              15m
+shell-demo   1/2     CrashLoopBackOff   23 (69s ago)   4h29m
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ mkdir my2pod
+maaz@DESKTOP-8INOQC6:~$ cp pod3.yaml /home/my2pod
+cp: cannot stat 'pod3.yaml': No such file or directory
+maaz@DESKTOP-8INOQC6:~$ cp /my1pod/pod3.yaml /home/my2pod
+cp: cannot stat '/my1pod/pod3.yaml': No such file or directory
+maaz@DESKTOP-8INOQC6:~$ cd my1pod
+maaz@DESKTOP-8INOQC6:~/my1pod$ ls
+newFile  pod3.yaml
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp pod3.yaml /home/my2pod/
+cp: cannot create regular file '/home/my2pod/': Not a directory
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp pod3.yaml /home/my2pod
+cp: cannot create regular file '/home/my2pod': Permission denied
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp pod3.yaml my2pod/
+cp: cannot create regular file 'my2pod/': Not a directory
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd..
+cd..: command not found
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ cp pod3.yaml my2pod/
+cp: cannot stat 'pod3.yaml': No such file or directory
+maaz@DESKTOP-8INOQC6:~$ cd my1pod
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp pod3.yaml my2pod/
+cp: cannot create regular file 'my2pod/': Not a directory
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ cd -R /home/my1pod/pod3.yaml /home/my2pod/
+-bash: cd: -R: invalid option
+cd: usage: cd [-L|[-P [-e]] [-@]] [dir]
+maaz@DESKTOP-8INOQC6:~$ cp -R /home/my1pod/pod3.yaml /home/my2pod/
+cp: cannot stat '/home/my1pod/pod3.yaml': No such file or directory
+maaz@DESKTOP-8INOQC6:~$ cd my1pod
+maaz@DESKTOP-8INOQC6:~/my1pod$ ls
+newFile  pod3.yaml
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ cd -
+/home/maaz/my1pod
+maaz@DESKTOP-8INOQC6:~/my1pod$ ls -l
+total 8
+-rw-r--r-- 1 maaz maaz 2595 Oct  2 19:20 newFile
+-rw-r--r-- 1 maaz maaz  146 Oct  2 18:56 pod3.yaml
+maaz@DESKTOP-8INOQC6:~/my1pod$ chown 777 pod3.yaml
+chown: changing ownership of 'pod3.yaml': Operation not permitted
+maaz@DESKTOP-8INOQC6:~/my1pod$ sudo chown 777 pod3.yaml
+[sudo] password for maaz:
+maaz@DESKTOP-8INOQC6:~/my1pod$ ls -l
+total 8
+-rw-r--r-- 1 maaz maaz 2595 Oct  2 19:20 newFile
+-rw-r--r-- 1  777 maaz  146 Oct  2 18:56 pod3.yaml
+maaz@DESKTOP-8INOQC6:~/my1pod$ sudo chmod 777 pod3.yaml
+maaz@DESKTOP-8INOQC6:~/my1pod$ ls -l
+total 8
+-rw-r--r-- 1 maaz maaz 2595 Oct  2 19:20 newFile
+-rwxrwxrwx 1  777 maaz  146 Oct  2 18:56 pod3.yaml
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp  /home/my1pod/pod3.yaml /home/my2pod/
+cp: cannot stat '/home/my1pod/pod3.yaml': No such file or directory
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp  /home/my1pod/pod3.yaml /home/my2pod/
+cp: cannot stat '/home/my1pod/pod3.yaml': No such file or directory
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp  /my1pod/pod3.yaml /home/my2pod/
+cp: cannot stat '/my1pod/pod3.yaml': No such file or directory
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp  pod3.yaml /home/my2pod/
+cp: cannot create regular file '/home/my2pod/': Not a directory
+maaz@DESKTOP-8INOQC6:~/my1pod$ cp  pod3.yaml my2pod/
+cp: cannot create regular file 'my2pod/': Not a directory
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ cp  pod3.yaml my2pod/
+cp: cannot stat 'pod3.yaml': No such file or directory
+maaz@DESKTOP-8INOQC6:~$ cd my1pod
+maaz@DESKTOP-8INOQC6:~/my1pod$ cat pod3.yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: saadpod
+spec:
+  containers:
+  - name: saadcon
+    image: maazd:v1
+    ports:
+    - containerPort: 80
+
+
+--restart=Never   ( never=when no manager )
+                               (  always = deployment )
+                               ( onfailure = job )
+
+
+
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ cd my2pod
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ rm -rf pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ kubectl create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ ls
+pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ kubectl create -f pod4.yaml
+error: error parsing pod4.yaml: error converting YAML to JSON: yaml: line 4: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ kubectl create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ kubectl create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ la
+pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ ls
+pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ kubectl create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ kubectl create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod
+NAME         READY   STATUS             RESTARTS        AGE
+pod2         0/1     ImagePullBackOff   0               6h38m
+saadpod      1/1     Running            0               67m
+saadpod2     1/1     Running            0               55m
+shell-demo   1/2     CrashLoopBackOff   30 (5m7s ago)   5h9m
+maaz@DESKTOP-8INOQC6:~/my2pod$ ls
+pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ cd my1pod
+maaz@DESKTOP-8INOQC6:~/my1pod$ ls
+newFile  pod3.yaml
+maaz@DESKTOP-8INOQC6:~/my1pod$ vi pod3.yaml
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ cd my2pod
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ kubectl create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pod4.yaml
+error: unable to decode "pod4.yaml": json: cannot unmarshal string into Go struct field ObjectMeta.metadata.labels of type map[string]string
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pod4.yaml
+pod/saadpod4 created
+maaz@DESKTOP-8INOQC6:~/my2pod$ k delete pod saadpod4
+pod "saadpod4" deleted
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 7: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 7: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 7: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 6: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 4: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 4: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po
+NAME         READY   STATUS             RESTARTS       AGE
+pod2         0/1     ImagePullBackOff   0              6h55m
+saadpod      1/1     Running            0              83m
+saadpod2     1/1     Running            0              72m
+shell-demo   1/2     CrashLoopBackOff   34 (10s ago)   5h25m
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 6: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 6: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 6: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 6: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod --show-labels
+NAME         READY   STATUS             RESTARTS         AGE     LABELS
+pod2         0/1     ImagePullBackOff   0                7h4m    run=pod2
+saadpod      1/1     Running            0                92m     <none>
+saadpod2     1/1     Running            0                80m     run=saadpod2
+shell-demo   1/2     CrashLoopBackOff   35 (3m49s ago)   5h34m   <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ k run podshelby --image= maazd:v1 --restart=Never --port 80 --labels=type=production,env=frontend
+error: --image is required
+maaz@DESKTOP-8INOQC6:~/my2pod$ k run podshelby --image=maaz877/maazd --restart=Never --port 80 --labels=type=production,env=frontend
+pod/podshelby created
+maaz@DESKTOP-8INOQC6:~/my2pod$ k run podshelby --image=maaz877/maazd:v1 --restart=Never --port 80 --labels=type=production,env=frontend
+Error from server (AlreadyExists): pods "podshelby" already exists
+maaz@DESKTOP-8INOQC6:~/my2pod$ k run podtom --image=maaz877/maazd:v1 --restart=Never --port 80 --labels=type=production,env=frontend
+pod/podtom created
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po
+NAME         READY   STATUS             RESTARTS       AGE
+pod2         0/1     ImagePullBackOff   0              7h11m
+podshelby    0/1     ImagePullBackOff   0              2m7s
+podtom       1/1     Running            0              97s
+saadpod      1/1     Running            0              99m
+saadpod2     1/1     Running            0              88m
+shell-demo   1/2     CrashLoopBackOff   37 (28s ago)   5h41m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k port-forward podtom 8084:80
+Forwarding from 127.0.0.1:8084 -> 80
+Forwarding from [::1]:8084 -> 80
+Handling connection for 8084
+Handling connection for 8084
+^Z
+[3]+  Stopped                 kubectl port-forward podtom 8084:80
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po --show-labels
+NAME         READY   STATUS             RESTARTS         AGE     LABELS
+pod2         0/1     ImagePullBackOff   0                7h12m   run=pod2
+podshelby    0/1     ImagePullBackOff   0                3m59s   env=frontend,type=production
+podtom       1/1     Running            0                3m29s   env=frontend,type=production
+saadpod      1/1     Running            0                101m    <none>
+saadpod2     1/1     Running            0                89m     run=saadpod2
+shell-demo   1/2     CrashLoopBackOff   37 (2m20s ago)   5h43m   <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po --L env,type
+error: unknown flag: --L
+See 'kubectl get --help' for usage.
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po -L env,type
+NAME         READY   STATUS             RESTARTS         AGE     ENV        TYPE
+pod2         0/1     ImagePullBackOff   0                7h15m
+podshelby    0/1     ImagePullBackOff   0                6m4s    frontend   production
+podtom       1/1     Running            0                5m34s   frontend   production
+saadpod      1/1     Running            0                103m
+saadpod2     1/1     Running            0                91m
+shell-demo   1/2     CrashLoopBackOff   37 (4m25s ago)   5h45m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k delete pod pod2
+pod "pod2" deleted
+maaz@DESKTOP-8INOQC6:~/my2pod$ k delete pod podshelby
+pod "podshelby" deleted
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po
+NAME         READY   STATUS             RESTARTS       AGE
+podtom       1/1     Running            0              7m36s
+saadpod      1/1     Running            0              105m
+saadpod2     1/1     Running            0              94m
+shell-demo   1/2     CrashLoopBackOff   38 (74s ago)   5h47m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k label pod saadpod app= whatsapp, env= testing, type= frontend
+error: all resources must be specified before label changes: whatsapp,
+maaz@DESKTOP-8INOQC6:~/my2pod$ k label pod saadpod app=whatsapp,env=testing,type=frontend
+error: invalid label spec: app=whatsapp,env=testing,type=frontend
+maaz@DESKTOP-8INOQC6:~/my2pod$ k label pod saadpod app=whatsapp env=testing type=frontend
+pod/saadpod labeled
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po --show-labels
+NAME         READY   STATUS             RESTARTS       AGE     LABELS
+podtom       1/1     Running            0              12m     env=frontend,type=production
+saadpod      1/1     Running            0              110m    app=whatsapp,env=testing,type=frontend
+saadpod2     1/1     Running            0              98m     run=saadpod2
+shell-demo   1/2     CrashLoopBackOff   39 (56s ago)   5h52m   <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po -L env,type,app
+NAME         READY   STATUS             RESTARTS        AGE     ENV        TYPE         APP
+podtom       1/1     Running            0               13m     frontend   production
+saadpod      1/1     Running            0               111m    testing    frontend     whatsapp
+saadpod2     1/1     Running            0               100m
+shell-demo   1/2     CrashLoopBackOff   39 (2m5s ago)   5h53m
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 6: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ k delete -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 6: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po
+NAME         READY   STATUS             RESTARTS         AGE
+podtom       1/1     Running            0                19m
+saadpod      1/1     Running            0                117m
+saadpod2     1/1     Running            0                105m
+shell-demo   1/2     CrashLoopBackOff   40 (2m37s ago)   5h59m
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 6: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po --show-labels
+NAME         READY   STATUS             RESTARTS       AGE    LABELS
+podtom       1/1     Running            0              22m    env=frontend,type=production
+saadpod      1/1     Running            0              120m   app=whatsapp,env=testing,type=frontend
+saadpod2     1/1     Running            0              109m   run=saadpod2
+shell-demo   1/2     CrashLoopBackOff   41 (42s ago)   6h2m   <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po -L env,type
+NAME         READY   STATUS             RESTARTS       AGE    ENV        TYPE
+podtom       1/1     Running            0              22m    frontend   production
+saadpod      1/1     Running            0              120m   testing    frontend
+saadpod2     1/1     Running            0              109m
+shell-demo   1/2     CrashLoopBackOff   41 (53s ago)   6h3m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k label pod saadpod app=facebook --overwrite
+pod/saadpod labeled
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po -L env,app
+NAME         READY   STATUS             RESTARTS         AGE    ENV        APP
+podtom       1/1     Running            0                24m    frontend
+saadpod      1/1     Running            0                122m   testing    facebook
+saadpod2     1/1     Running            0                110m
+shell-demo   1/2     CrashLoopBackOff   41 (2m29s ago)   6h4m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod -l app=facebook
+NAME      READY   STATUS    RESTARTS   AGE
+saadpod   1/1     Running   0          128m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod -l app=facebook --show-labels
+NAME      READY   STATUS    RESTARTS   AGE    LABELS
+saadpod   1/1     Running   0          128m   app=facebook,env=testing,type=frontend
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod -l env!=fronend --show-labels
+NAME         READY   STATUS             RESTARTS       AGE     LABELS
+podtom       1/1     Running            0              32m     env=frontend,type=production
+saadpod      1/1     Running            0              130m    app=facebook,env=testing,type=frontend
+saadpod2     1/1     Running            0              119m    run=saadpod2
+shell-demo   1/2     CrashLoopBackOff   43 (29s ago)   6h13m   <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod -l env!=frontend --show-labels
+NAME         READY   STATUS             RESTARTS       AGE     LABELS
+saadpod      1/1     Running            0              130m    app=facebook,env=testing,type=frontend
+saadpod2     1/1     Running            0              119m    run=saadpod2
+shell-demo   1/2     CrashLoopBackOff   43 (47s ago)   6h13m   <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod -l app --show-labels
+NAME      READY   STATUS    RESTARTS   AGE    LABELS
+saadpod   1/1     Running   0          133m   app=facebook,env=testing,type=frontend
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod -l '!env' --show-labels
+NAME         READY   STATUS             RESTARTS         AGE     LABELS
+saadpod2     1/1     Running            0                122m    run=saadpod2
+shell-demo   1/2     CrashLoopBackOff   43 (3m41s ago)   6h16m   <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod -l 'env in (frontend,testing)' --show-labels
+NAME      READY   STATUS    RESTARTS   AGE    LABELS
+podtom    1/1     Running   0          38m    env=frontend,type=production
+saadpod   1/1     Running   0          135m   app=facebook,env=testing,type=frontend
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod -l 'type notin (production)' --show-labels
+NAME         READY   STATUS             RESTARTS       AGE     LABELS
+saadpod      1/1     Running            0              136m    app=facebook,env=testing,type=frontend
+saadpod2     1/1     Running            0              125m    run=saadpod2
+shell-demo   1/2     CrashLoopBackOff   44 (89s ago)   6h19m   <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ cd ../my1pod
+maaz@DESKTOP-8INOQC6:~/my1pod$ cat pod3.yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: saadpod
+spec:
+  containers:
+  - name: saadcon
+    image: maazd:v1
+    ports:
+    - containerPort: 80
+
+maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
+maaz@DESKTOP-8INOQC6:~$ cd my2pod
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 8: mapping values are not allowed in this context
+maaz@DESKTOP-8INOQC6:~/my2pod$ ls
+pod4.yaml  pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ cat pod4.yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: saadpod4
+spec:
+  containers:
+  - name: saadcon2
+    image: maazd:v1
+    ports:
+    - containerPort: 80
+
+
+
+maaz@DESKTOP-8INOQC6:~/my2pod$ rm -rf pod4.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 7: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 7: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 4: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 4: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+Error from server (BadRequest): error when creating "pods.yaml": Pod in version "v1" cannot be handled as a Pod: strict decoding error: unknown field "metadeta"
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 4: did not find expected key
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: error parsing pods.yaml: error converting YAML to JSON: yaml: line 3: mapping values are not allowed in this context
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+error: resource mapping not found for name: "" namespace: "" from "pods.yaml": no matches for kind "Pod" in version "v2"
+ensure CRDs are installed first
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+The Pod "" is invalid: metadata.name: Required value: name or generateName is required
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+pod/podsofsaad created
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po
+NAME         READY   STATUS             RESTARTS       AGE
+podsofsaad   1/1     Running            0              28s
+podtom       1/1     Running            0              86m
+saadpod      1/1     Running            0              3h3m
+saadpod2     1/1     Running            0              172m
+shell-demo   1/2     CrashLoopBackOff   53 (72s ago)   7h6m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k delete pod podofsaad
+Error from server (NotFound): pods "podofsaad" not found
+maaz@DESKTOP-8INOQC6:~/my2pod$ k delete pod podsofsaad
+pod "podsofsaad" deleted
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create -f pods.yaml
+pod/podsofsaad created
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k annotate pod podtom createdby="maaz", email="maaz.com"
+pod/podtom annotated
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod podtom -o yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k describe pod podtom
+Name:             podtom
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             docker-desktop/192.168.65.4
+Start Time:       Sun, 02 Oct 2022 20:34:30 +0500
+Labels:           env=frontend
+                  type=production
+Annotations:      createdby: maaz,
+                  email: maaz.com
+Status:           Running
+IP:               10.1.0.38
+IPs:
+  IP:  10.1.0.38
+Containers:
+  podtom:
+    Container ID:   docker://67241bc7f9c5bbdd7754e04e3da3de7624e4a98d1733ccfa5b561b655e7144a7
+    Image:          maaz877/maazd:v1
+    Image ID:       docker-pullable://maaz877/maazd@sha256:8879d9c184fc31a4f3d7a4b6391ea6606ee6c8c444a0da06d49f2174ec6ac93c
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sun, 02 Oct 2022 20:34:36 +0500
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-hs6l9 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-hs6l9:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po
+NAME         READY   STATUS             RESTARTS         AGE
+podsofsaad   1/1     Running            0                15m
+podtom       1/1     Running            0                103m
+saadpod      1/1     Running            0                3h20m
+saadpod2     1/1     Running            0                3h9m
+shell-demo   1/2     CrashLoopBackOff   56 (2m31s ago)   7h23m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get namespaces
+NAME              STATUS   AGE
+default           Active   14d
+kube-node-lease   Active   14d
+kube-public       Active   14d
+kube-system       Active   14d
+maaz@DESKTOP-8INOQC6:~/my2pod$ k create namespace production
+namespace/production created
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get namespaces
+NAME              STATUS   AGE
+default           Active   14d
+kube-node-lease   Active   14d
+kube-public       Active   14d
+kube-system       Active   14d
+production        Active   4s
+maaz@DESKTOP-8INOQC6:~/my2pod$ k run podtommy --image=maaz877/maazd:v1 --restart=Never --port 80 --labels=type=production,env=database --namespace=production
+pod/podtommy created
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get namespaces podtommy
+Error from server (NotFound): namespaces "podtommy" not found
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod --namespace production
+NAME       READY   STATUS    RESTARTS   AGE
+podtommy   1/1     Running   0          60s
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod --all-namespaces
+NAMESPACE     NAME                                     READY   STATUS             RESTARTS          AGE
+default       podsofsaad                               1/1     Running            0                 42m
+default       podtom                                   1/1     Running            0                 130m
+default       saadpod                                  1/1     Running            0                 3h47m
+default       saadpod2                                 1/1     Running            0                 3h36m
+default       shell-demo                               1/2     CrashLoopBackOff   61 (3m28s ago)    7h50m
+kube-system   coredns-95db45d46-xcgks                  1/1     Running            5 (9h ago)        14d
+kube-system   coredns-95db45d46-ztzx7                  1/1     Running            5 (9h ago)        14d
+kube-system   etcd-docker-desktop                      1/1     Running            6 (9h ago)        14d
+kube-system   kube-apiserver-docker-desktop            1/1     Running            6 (9h ago)        14d
+kube-system   kube-controller-manager-docker-desktop   1/1     Running            11 (9h ago)       14d
+kube-system   kube-proxy-llnvp                         1/1     Running            5 (9h ago)        14d
+kube-system   kube-scheduler-docker-desktop            1/1     Running            15                14d
+kube-system   storage-provisioner                      1/1     Running            18                14d
+kube-system   vpnkit-controller                        0/1     Error              106 (8m24s ago)   14d
+production    podtommy                                 1/1     Running            0                 88s
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po
+NAME         READY   STATUS             RESTARTS       AGE
+podsofsaad   1/1     Running            0              44m
+podtom       1/1     Running            0              132m
+saadpod      1/1     Running            0              3h49m
+saadpod2     1/1     Running            0              3h38m
+shell-demo   1/2     CrashLoopBackOff   62 (17s ago)   7h52m
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po podsofsaad -0 yaml
+error: unknown shorthand flag: '0' in -0
+See 'kubectl get --help' for usage.
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get po podsofsaad -o yaml
+
+maaz@DESKTOP-8INOQC6:~/my2pod$ ls
+pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$ k apply -f pods.yaml
+pod/podsofsaad created
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod --namespaces production
+error: unknown flag: --namespaces
+See 'kubectl get --help' for usage.
+maaz@DESKTOP-8INOQC6:~/my2pod$ k get pod --namespace production
+NAME         READY   STATUS    RESTARTS   AGE
+podsofsaad   1/1     Running   0          44s
+podtommy     1/1     Running   0          8m2s
+maaz@DESKTOP-8INOQC6:~/my2pod$ vi pods.yaml
+maaz@DESKTOP-8INOQC6:~/my2pod$

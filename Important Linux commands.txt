@@ -1,0 +1,1049 @@
+    1  cd ~
+    2  cd/home
+    3  cd /home
+    4  ls
+    5  histroy
+    6  clear
+    7  cd /
+    8  ls
+    9  cd mnt
+   10  ls
+   11  cd c
+   12  ls
+   13  cd home
+   14  histroy
+   15  cd /root
+   16  ls
+   17  clear
+   18  ls
+   19  cd /
+   20  ls
+   21  cd home
+   22  mkdir saadk
+   23  ls
+   24  cd saadk
+   25  mkdir first
+   26  ls
+   27  cd ..
+   28  cd first
+   29  cd saadk
+   30  cd ../..
+   31  cd -
+   32  ls
+   33  ls -R
+   34  cd ..
+   35  ls -R
+   36  ls -a
+   37  cd saadk
+   38  mkdir .second
+   39  ls -a
+   40  ls -l
+   41  cd ..
+   42  cd saad
+   43  mkdir -p sad happy
+   44  ls
+   45  mkdir -p emotional/yes/no
+   46  ls
+   47  cd emotional
+   48  ls
+   49  cd - = previous path
+   50  ls -l -a
+   51  stat saad
+   52  stat sad
+   53  touch abc.txt
+   54  ls
+   55  echo hello saad > abc.txt
+   56  cat abc.txt
+   57  cat and maaz >> abc.txt =append daTA
+   58  ls
+   59  cat sad > abc.txt
+   60  cat asdf > abc.txt
+   61  echo maaz ullah >> abc.txt
+   62  cat abc.txt
+   63  echo sada >> abc.txt
+   64  cat abc.txt
+   65  echo uzair >file.txt
+   66  echo file.txt
+   67  cat file.txt
+   68  nano file.txt
+   69  cp abc.txt/saad saadk/
+   70  cp saad/abc.txt saadk/
+   71  cd ..
+   72  cp saad/abc.txt saadk/
+   73  cd saadk
+   74  ls
+   75  cd -
+   76  cd saad
+   77  ls
+   78  cd ..
+   79  mv saad/abc.txt second/
+   80  mv saad/abc.txt saadk/
+   81  cd saadk
+   82  ls
+   83  rm abc.txt
+   84  ls
+   85  cd ..
+   86  cd saadk
+   87  ls
+   88  nano xyz.txt
+   89  ls
+   90  nano xyz.txt
+   91  ls
+   92  mv xyz.txt sad.txt
+   93  ls
+   94  echo uzair > abc.txt
+   95  ls
+   96  cat abc.txt sad.txt
+   97  cat abc.txt sad.txt > newfile.txt
+   98  ls
+   99  rm newfile.txt
+  100  ls
+  101  rmdir first
+  102  ls
+  103  cd ../..
+  104  cd /home
+  105  locate abc.txt
+  106  apt install mlocate
+  107  locate sad.txt
+  108  cd saadk
+  109  find ~/saad -name sad.txt
+  110  find ~/saad --name sad.txt
+  111  find ~/saad/ -name sad.txt
+  112  find ~/saadk/ -name sad.txt
+  113  cd ..
+  114  find ~/saadk/ -name sad.txt
+  115  find home/saadk/ -name sad.txt
+  116  cd saadk
+  117  ls
+  118  find . -name sad.txt= current location s path,but relative path
+  119  cd ..
+  120  find ~/ -name sad.txt
+  121  find ~/saadk/ -name sad.txt
+  122  find / -name sad.txt
+  123  cd histroy
+  124  grep 'maaz' abc.txt
+  125  ls-a
+  126  ls -R
+  127  grep 'maaz'  .name abc.txt
+  128  cd saadk
+  129  ls
+  130  cat abc.txt
+  131  grep 'uzair' abc.txt
+  132  grep 'Uzair' abc.txt
+  133  grep -i 'Uzair' abc.txt
+  134  man grep
+  135  df -h
+  136  histry
+  137  history
+ 138  pwd
+  139  ls
+  140  cd home
+  141  cd /home
+  142  ls
+  143  histroy
+  144  cd/home
+  145  cd /home
+  146  ls
+  147  cd saad
+  148  ls
+  149  cd /
+  150  sudo su
+  151  ls
+  152  cd /
+  153  ls
+  154  cd home
+  155  ls
+  156  cd saadk
+  157  ls -la
+  158  la -l
+  159  vi abc.txt
+  160  ls
+  161  cd ..
+  162  ls
+  163  cd home
+  164  cd..
+  165  grep -i 'uzai' abc.txt
+  166  ls
+  167  cd saadk
+  168  ls
+  169  cat abc.txt
+  170  grep -i 'uzai' abc.txt
+  171  echo your are best friend uzair >> abc.txt
+  172  cat abc.txt
+  173  grep -i 'uzai' abc.txt
+  174  grep -o 'uzai' abc.txt
+  175  grep -w 'uzai' abc.txt
+  176  grep -o,c,b,n,r 'uzai' abc.txt
+  177  echo your are best friend saad and uzair >> abc.txt
+  178  cat abc.txt
+  179  grep -o 'uzai' abc.txt
+  180  grep -w 'uzai' abc.txt
+  181  grep -i 'Uzai' abc.txt
+  182  du -h
+  183  sudo mkdir maaz
+  184  ls
+  185  ls -l
+  186  cd /
+  187  ls
+  188  cd var
+  189  ls
+  190  cd log
+  191  ls
+  192  cat dpkg.log
+  193  head -15 dpkg.log
+  194  tail -15 dpkg.log
+  195  tail -f dpkg.log =follow the file log
+  196  man tail
+  197  tail -c dpkg.log
+  198  man tail
+  199  tail -c 12 dpkg.log
+  200  man tail
+  201  which ls
+  202  type cd
+  203  whereis ls
+  204  cd /home/
+  205  ls
+  206  cd saadk
+  207  ls -l
+  208  chmod u
+  209  chmod u+x sad.txt
+  210  ls -l
+  211  chmod u-x sad.txt
+  212  ls -l
+  213  chmod g+w sad.txt
+  214  ls -l
+  215  chmod 421 sad.txt
+  216  ls -l
+  217  sudo chown root:root sad.txt
+  218  ls -l
+  219  sudo chown :root sad.txt
+  220  sudo chown root sad.txt
+  221  ping google.com
+  223  cd ..
+  224  wget https://img.freepik.com/
+  225  ls
+  226  cd home/saadk
+  227  wget https://img.freepik.com/free-photo/cool-geometric-triangular-figure-neon-laser-light-great-backgrounds-wallpapers_181624-9331.jpg?w=2000
+  228  ls
+  229  rm 'https://img.freepik.com/free-photo/cool-geometric-triangular-figure-neon-laser-light-great-backgrounds-wallpapers_181624-9331.jpg?w=2000'
+  230  ls
+  231  rm 'https://img.freepik.com/free-photo/cool-geometric-triangular-figure-neon-laser-light-great-backgrounds-wallpapers_181624-9331.jpg?w=2000'
+  232  rm 'cool-geometric-triangular-figure-neon-laser-light-great-backgrounds-wallpapers_181624-9331.jpg?w=2000'
+  233  ls
+  234  uname=linux system related detail or kernel related
+  235  uname -a = dev,date,time
+  236  uname -r= puri release
+  237  uname -v= version kb aya,name
+  238  uptime
+  239  info ls
+  240  info=all useful linux commands
+  241  whoami
+  242  w=show login user and what the are doing h
+  243  hostname
+  244  hostname -i=current ip
+  245  ls
+  246  sudo chgrp =group change krne klye,user,group,other
+  247  sudo chgrp root sad.txt
+  248  cd /
+  249  ls
+  250  cd var
+  251  ls
+  252  cd log
+  253  tail -15 dpkg.log
+  254  alias ta='tail -15 dpkg.log'
+  255  ta
+  256  unalias ta
+  257  cd -
+  258  cd ..
+  259  cd home/saadk/
+  260  ls
+  261  cat abc.txt
+  262  ln -s abc.txt linkfile.txt =soft link,diff inode,same size,same like shortcut copy on any location
+       ln -s /home/saad/file.txt /mnt/d/SoftLinkFile
+  263  ls
+  264  nano linkfile.txt
+  265  cat abc.txt
+  266  ls -l
+  267  ls -i
+  268  rm -rf linkfile.txt
+  269  ls
+  270  ln abc.txt hardLinkFile.txt =hardlink,size alg,inode same,storing location yani inode same
+  271  ls
+  272  ls -l
+  273  ls -il
+       ll-hi
+  274  cd /var/log
+  275  more dpkg.log
+  276  less dpkg.log
+  277  wc dpkg.log
+  278  cd -
+  279  wc -l dpkg.log
+  280  cd -
+  281  wc -l dpkg.log
+  282  wc -w dpkg.log
+  283  wc -c dpkg.log
+  284  cd -
+  285  sort abc.txt
+  286  cat abc.txt
+  287  uniq abc.txt
+  288  sort abc.txt
+  289  cal
+  290  date
+  291  last
+  292  last reboot
+  293  cat abc.txt
+  294  sed s/uzair/maaz / abc.txt
+  295  cat abc.txt
+  296  sed s/uzair/maaz/ abc.txt
+  297  cat abc.txt
+  298  sed s/u/U abc.txt= u change in U
+  299  sed s/u/U/ abc.txt=orignal file no change
+  300  sed s/u/U/g abc.txt
+  301  sed s/u/U/g abc.txt > changefile.txt=file now change
+  302  cat changefile.txt
+  303  dd if=changefile.txt of=ChangeUcase.txt conc=ucase
+  304  dd if=changefile.txt of=ChangeUcase.txt conv=ucase
+  305  cat ChangeUcase.txt
+  306  split ChangeUcase.txt
+  307  ls
+  308  cat changefile.txt
+  309  cat ChangeUcase.txt
+  310  cat xaa
+  311  cat -n 3 ChangeUcase.txt
+  312  ls
+  313  split -n 3 ChangeUcase.txt = 3 parts
+       split -b 4 ChangeUcase.txt = as per bytes
+       split -l 3 ChangeUcase.txt = as per lines
+  314  ls
+  315  cat xaa
+  316  cat xab
+  317  rm -rf xaa
+  318  rm -rf xab
+  319  rm -rf xac
+       rm xa.* also wth cat
+  320  ls
+ 322  history
+
+which man
+senlinux provide security architecture,wo check krta evc
+excess vector cashie
+multiple operation h kch allow krna hn baqi ni, default msab allow hnge,
+evc m sab block hnge ap specic op ko allow krte
+script s dat copy krle,file na chle, script na chle to uskliye se security enhance linux linus
+types:
+acces control=jo access krega use control
+security control (mendatory acces control-dept of defece define krega
+mac vs dac (dictionary acces control)
+dac-kon user ak acces krega,owner ya user manage krega system ni,execute kisko dena h ,write kiso dena h
+agr user uneducated h to usk lye mac, system kpas rights hte,
+konse resiource ka acess allow ya deny krna h,wi manage krta h
+se linux models
+enforcing-enforce krte k policy p amal kya jae,lazmi krna
+permissive-wrna warning
+disable-apne ni krna follow policy
+se linux types
+targeted:hmen linux ksare process ko targeted krliya wo on baqi sab block,sab block,jo allow bas wi on
+minimum:sare process protected ni hnge kch hnge jo khnge bas wi,targeted k modification
+mix:multi level security protection-govt organization use krti
+selinus kamkese krta?
+  getit /etc/sysconfig/selinux/
+  remove # from enforcing
+  reboot
+  sestatuus=enforce/enabled
+policy jo consist krti ,user then uskoroles,usko domain ar phr usko file access
+setinforce 0
+setinforce 1
+getinforce
+apt-get update
+sudo apt install policycoreutils
+
+sudo apt install policycoreutils selinux-utils selinux-basics
+sudo selinux-config-enforcing    
+sudo vim /etc/selinux/config
+sudo semodule -l bar less---modules of selinux  
+suo semanage boolean -l bar less
+getsebool adfgh===ksi specific boolean ka status on ya off dkh skte hn
+sudo setsebool adfgh on
+virtual machine k spec monitor krne?
+cat /etc/os-release
+swap=memory ram, s data ljk sawp krdeta h.jb zarort end htito dbra swap
+free
+free -h
+cat /etc/os-release
+cat /etc/fstab
+swapoff -a=temporary off hoga swap dobra enforce
+nano /etc/fstab (# lgak comment krdo to perm off)
+cat /proc/cpuinfo
+lscpu
+lsblk
+df -h harddisk memor
+du -h saad.txt
+device types
+character device=jo directsystem mlg krchle like raw device or file--
+jo inputoutput krnga wo yhn aenge functions,kernel m jo execute wo isk sth chlege
+direct hardware kacceskregi
+cd /dev/ =yhn hti h
+ls -l tty 
+block device=storage
+pseudo
+node creation
+msstat
+mpstat -P ALL =sare cpu core k info 
+mpstat -P 2 =tesre core k info
+mpstat -A sb k info
+mpstat 2 2=hr 2 sec bad 2 dfa print kre processing info
+iostat
+cksum file.txt=bytes btega
+time=sys k resource k usage
+echo saad
+echo $? =? last command ka status btega agr 0 to sucessful wrna ni
+true && echo 'command is true'= =ise succes and mboth true hn
+echo $? 
+cat>indec.html=file bni,data put,,ctrl c bhr,ar double greater s add uphoga data
+cat -b index.html-non blank file print
+cat -n index.html-blank k sth no
+cat -s index.html-blank data squeeze
+bc= ise add etc krskte,scales decimal values ati,exit ya ctrl c s out
+echo saad bar tee saad.txt=output show,filem add bi
+echo saad bar tee -a saad.txt=data apppend
+echo saad bar tee -a saad.txt maaz.txt=append data last wali m,total data start wali m
+ip a =network interface-hardware interface card likelan or wifi,isi k through network  k connect bnti h system k
+tr a-z A-Z=lower case uppercase change
+tr [:upper][:lower]
+ulimit=multiple user add,file open hoskti,file ka size limit
+cd /etc/security/
+vim limits.cong =limit accessrokn klye
+id
+whoami
+w=kb s kon on h system p
+who
+
+ sestatus
+  332  apt install policycoreutils
+  333  sestatus
+  334  apt install policycoreutils
+  335  getenforce
+  336  apt install selinux-utils
+  337  sudo apt install policycoreutils
+  338  apt-get update
+  339  sudo apt install policycoreutils
+  340  sestatus
+  341  sudo sestatus
+  342  getenforce
+  343  sudo getenforce
+  344  setenforce
+  345  setenforce 1
+  346  sudo vi /etc/selinux/config
+  347  setenforce 1
+  348  setenforce 0
+  349  sestatus
+  350  sudo vi /etc/selinux/config
+  351  sudo selinux-activate
+  352  sudo apt install policycoreutils selinux-utils selinux-basics
+  353  sudo selinux-activate
+  354  sudo selinux-config-enforcing
+  355  sestatus
+  356  sudo vim /etc/selinux/config
+  357  sudo apt install policycoreutils selinux-utils selinux-basics
+  358  sudo vim /etc/selinux/config
+  359  apt-get update
+  360  sudo vim /etc/selinux/config
+  361  sudo apt install policycoreutils
+  362  sudo vim /etc/selinux/config
+  363  cat /etc/os-release
+  364  free
+  365  free -h
+  366  cat /etc/fstab
+  367  swapoff -a
+  368  free -m
+  369  free -g
+  370  nano /etc/fstab
+  371  cat /proc/cpuinfo
+  372  lscpu
+  373  lsblk
+  374  sudo lsblk
+  375  df -h
+  376  cd /home
+  377  ls
+  378  du -h  saad
+  379  cd /dev/
+  380  ls
+  381  ls -l tty
+  382  cd /
+  383  sudo apt install systat
+  384  mpstat
+  385  apt install sysstat
+  386  mpstat
+  387  mpstat 2 2
+  388  mpstat 2 1
+  389  mpstat 1 4
+  390  mpstat 1 1
+  391  mpstat 5 1
+  392  iostat
+  393  cd /home/saad
+  394  ls
+  395  chksum file.txt
+  396  apt install <deb name>
+  397  sudo apt install <deb name>
+  398  cksum file.txt
+  399  time
+  400  time wget google.com
+  401  echo saad
+  402  echo $?
+  403  true
+  404  echo $?
+  405  false
+  406  echo $?
+  407  echo true && echo 'command is true'
+  408  echo $?
+  409  ip a
+  410  tr a-z A-Z
+  411  ulimit
+  412  cd /etc/security/
+  413  ls
+  414  vim imits.d
+  415  vim imits.conf
+  416  id
+  417  history
+PROCESS TYPES
+Parent: init processes and have child processes jo sstem chla te,parent id child id ko own kregi ,boss,process manage kran,ar end k bad kill krna,
+zombie:agr parent na ho to wo zombie,kill ni hoga,
+often: mbhi parent s child ya child s parent miss,but wo ksi ar ko parent bnalete
+foreground process:command chali run hui,wo fg process,terminal p rhte hue open,interaction hui h
+child: child id actual process h
+ps=sirf shell k process
+ps -af=terminal k sar process
+ps -ef=systemk sare process
+tty=terminal s chl rae process,ar unique id hogi
+tty2= 2 terminal h ek min y open dosre m y open,ps -a,with id,so can kill
+process kill krne klye signal bhjte hn,wo signal process recrive krta ar kill krdeta
+sleep 5= 5 sec k lye sleep,for ground m hoga,background m sleep k lyen,neche deko
+sleep 5 & =[1] 85,1 job h,85 id
+jobs=current procees
+sleep 20=ctrl z s stop,but back ground m chlejaegi,phr bg%1 =1 job id
+pidof/pgrep sleep=process ko find krne k lye,id na yad ho process k,name yad ho bas
+kill -15 2324332=process id dk,use kill kro but request dk,ani gracefully,kampura hojae phle,inform krdo,system yi lta h age na bi lkhn,-9 s forcefully kill hoga
+ps -ef bar grep sleep=same as above pidogf
+pkill/killall sleep=sleep k sari kill hojengi
+top=top process jo run horae,shift p se cpu s order wise,c s path base command show,nice value,priority value
+nice value= -20- se 20 (19 higest hogi)
+nice -10 sleep 12=plus 10 nice value
+nice --10 sleep 12=minus 10 minus value
+s: process types,
+S=sleep,ksi dosre command k intezar m wo chlegi tb chlegi y,dependent
+D=uniterptable sleep,wo jo kill na hoske,systemkin it n chlaya h,system n khud chlya h
+R=running
+Z=zombie,parent miss
+X=deap=parked,koi job bad m chlegi
+I=idle,low priority process,last m jab pc free tb chlenge
+t=stop,system n khud tool k req k lhaz s stop kya
+T= traecd stop,JO HMNE TRACE KRK STOP KYA
+nice -1 sleep 3 &
+top=sleep k id note
+renice -n 5(change value in plus) -p 143(process id)
+id=user id,group id
+renice -n 5(change value in plus) -g 1000(group id)
+renice -n 5(change value in plus) -u 1000(user id)
+ping google.com &=background m jaega process but output terminal pata rega,
+output dosri filemdlne k lye:
+nohup ping google.com & =again enter to getback on terminal,release terminal
+ls=file ajegi,nohup wali,jisme output arha hoga
+tail-f nohup.out=followkrega outputko,live logs
+killall ping
+kill %1 =processid,agr priority high to sudo s killl,check with jobs command
+nohup ping google.com >myfile.put &=apneksi namek file p output
+nohup ping google.com > /dev/null &=background m chle withou any output show anywhere
+pkill ping=ping k sare jobs kill
+sleep 20
+pidof sleep=idlo ar phr
+wait 143 =processid,kch timeklye wait,helpful in bash ccripting
+wait -f=job ko weight k lhas s dekh kr wait p lgadega
+bsd format= - ni lgta yani flag command ksth
+fuser -v /=current system mjitne bhi user ksu fileya socket s connected h btega y command,koi use kya file khula btha h
+fuser -ki 123 =process id ya user id ar usk sare processkilhnge
+
+archieve;combnation of files and directory,files k movement m asani hti h,koi remove hne s rhjti h,data loss ni hta
+compress: data compress yani tightly coupled,use hota h jb data useful na ho ya km use ho to ap use cold storaeage m dlte,
+dobra use p uncompress
+gzip:Linux algo jo file ko archieve k sth,compress bhi kre,alg s download ni hta
+7z l compress.zip
+docker ps
+    2  apt install docker
+    3  sudo apt install docker
+    4  dockers
+    5  dockers version
+    6  docker version
+    7  history
+    8  pwd
+    9  cd /
+   10  cd -
+   11  ls
+   12  mkdir saadk
+   13  echo uzair > file.txt
+   14  ls
+   15  ls -l
+   16  cd saadk
+   17  echo maaz > file2.txt
+   18  cd ..
+   19  
+   20  tar -cvf archieve.tar saadk file.txt: create,verbose info,files arch
+   21  tar -tvf archieve.tar saadk file.txt; show cpntent of arch file
+   22  echo khat > file3.txt
+   23  tar -rvf archieve.tar file3.txt; add another file in archieve
+   24  tar -tvf archieve.tar
+   25  tar -xvf archieve.tar MyData; unarchieve the files
+   26  mkdir MyData
+   27  tar -xvf archieve.tar MyData
+   28  tar -xvf archieve.tar
+   29  ls
+   30  ls -R
+   31  cd MyData
+   32  ls
+   33  cd ..
+   34  tar -xvf archieve.tar  saadk file.txt file3.txt
+   35  ls
+   36  tar -xvf archieve1.tar  saadk file.txt file3.txt
+   37  tar -cvf archieve1.tar  saadk file.txt file3.txt
+   38  ls
+   39  rmdir saadk
+   40  rmdir -a saadk
+   41  man rmdir
+   42  cd saadk
+   43  ls
+   44  cd ..
+
+   47  tar -xvf archieve.tar -C MyData/ ; ksi directory m unarchieve krna
+   48  cd MyData
+   49  ls
+   50  rm -r MyData/ ; remove  directory
+   51  cd ..
+   52  rm -r MyData/
+   53  ls
+   54  rm -r arhieve.tar
+   55  rm -r saadk/
+   56  rm -rf file.txt file3.txt ; remove files
+   57  ls
+   58  tar -xvf archieve.tar
+   59  ls
+   60  tar -cvzf archieve3.tar.gz saadk file.txt file3.txt ; compress and archieve
+   61  ls
+   62  du -h
+   63  df -h
+   64  ls -ail
+   65  sudo apt-get install zip unzip
+   66  zip compress.zip saadk/ file.txt
+   67  zip -sf compress.zip
+   68  unzip -l compress.zip
+   69  zcat compress.zip
+   70  zless compress.zip
+   71  zmore compress.zip
+   72  vim compress.zip
+   73  sudo apt install p7zip-full
+   74  zip -u compress.zip file3.txt ; koi dsri file compress.zip m dlna
+   75  unzip -l compress.zip ; zip files ko show,time created
+   76  unzip -c compress.zip; zip files content read
+   77  unzip -c compress.zip file.txt; same as above
+   78  unzip compress.zip; unzip the zip files
+   79  ls
+   80  unzip compress.zip -d NewCompress ; ksi directory m unzip krna
+   81  ls
+   82  cd NewCompress
+   83  ls
+   84  cd -
+   85  rm compress.zip ; zip file delete
+   86  zip -m compress.zip saadk/ file.txt file3.txt ; zip krna sth unhi files ko delete
+   87  ls
+   88  history
+
+
+cat /etc/passwd
+   92  sudo adduser khanw
+   93  y
+   94  sudu su khanw
+   95  cat /etc/passwd
+   96  ls
+   97  cd /
+   98  ls
+   99  cd /home
+  100  ls
+  101  cd khanw
+  102  id
+  103  cd -
+  104  su khanw
+  105  sudo chage -l khanw
+  106  sudo deluser khanw
+  107  sudo adduser khanw
+  108  y
+  109  cd /
+  110  cd /home
+  111  ls
+  112  su khanw
+  113  whoami
+  114  sudo deluser khanw --remove-home
+  115  sudo useradd warsi
+  116  ls
+  117  cd /
+  118  ls
+  119  su warsi
+  120  sudo su warsi
+  121  cat /etc/groups
+  122  cat /etc/group
+  123  less /etc/group
+  124  sudo useradd -m maaz
+  125  cd home
+  126  ls
+  127  tail -3 /etc/passwd
+  128  sudo usermod maaz -s /bin/bash
+  129  tail -3 /etc/passwd
+  130  history
+
+*chown maaz:maaz perm -R    -----change ownership
+*chmod u+x+w filename          ------giving user xandw permissions
+* chmod 777 filename    ------7 for all perm to u, 7 for g, 7 for other
+1 x , 2 w, 4 r
+u user, g group, o other, 
+r read, w write, x
+
+package management
+apt-get zayper yum 
+
+apt ubuntu.debian
+yum centos
+rpm rehhat
+homebrew macos
+
+/etc/apt/sources.list --(repository)
+apt list
+apt search [name]
+apt update
+apt upgrade
+apt install [name]
+apt show [name]
+apt reinstall [name]
+apt remove [name]
+apt purge [name]
+apt autoremove
+apt install htop --fix-missing 
+ sudo snap install nextcloud  ---snapcraft downlooad full  version apps
+
+htop,btop task manager
+nload network load
+
+                   disk management 
+
+data partition: normal linux system data
+swap partition: expansion of computer's physical memory
+
+fdisk
+view, create, delete,change,resize,
+
+lsblk
+
+fdisk -l  /dev/sdb
+
+fdisk  /dev/sdb  command promp
+m for help
+p for print partition
+t 
+n for new partion
+  p primriry
+  e logical partion
+w
+
+partprobe ----reboot na krna paree
+
+lsblk
+
+mkfs.ext4 /dev/sdp1   format krne k liye
+
+mount /dev/sdb1 /mnt
+cd /mnt 
+
+df -h list of partition
+
+             logical volume manager 
+
+a method of flexible disk space management
+ability to add disk space to a logical volume and its
+  filesystem while the filesystem is mounted and active
+allows multiple physical hard drives into a single volume group
+volume groups can be partitioned into logical volumes
+
+commands
+
+fdisk -l  //disk partition info
+pvs       // physical volume info
+vgs       // volume group info
+lvs        // logical volume info
+lsblk     // available block devices
+
+pvcreate newdisk(/dev/sda1)    //to add disk
+vgextend vg_name newdisk  //add added disk to volume group
+lvextend -l +100%FREE v_name  //create logical volume on free space
+
+physical volume/ volume group( connect phy with logical ) / logical volume / file system
+
+L volume manag name (8e)
+w, partprobe
+create pv 
+  pvcreate /dev/sda1
+  vgcreate [name vg1 ] /dev/sda1
+  pvs
+  vgs
+lvcreate -n lv1 -l +100%FREE vg1
+  lvs
+mkfs.ext4 /dev/mapper/vg1-lv1
+
+lvextend 
+lvdisplay
+vgdisplay
+
+resize2fs /dev/mapper/vg1-lv1
+
+          complete commands for logical process
+​ 1 clear
+ 2 lsblk 
+3 umount /dev/sda 
+4 umount /dev/sdb 
+5 fdisk /dev/sda 
+6 partprobe 
+7 clear
+ 8 pvcreate /dev/sda1 
+9 vgcreate -n vg1 /dev/sda1 
+10 vgcreatevg1 /dev/sda1 
+11 pvs 
+12 vgs 
+13 lvcreate -n lv1 -l +100%FREE vg1 
+14 lvs 
+15 mkfs.ext4 /dev/mapper/vg1-lv1 
+16 mount /dev/mapper/vg1-lv1 /mnt 
+17 clear 
+18 cd /mnt/ 
+19 ls -l 
+20 df -h 
+21 lsblk 
+22 clear 
+23 fdisk /dev/sdb 
+24 partprobe 
+25 clear
+26 pvcreate /dev/sdb1 
+27 vgs 
+28 vgextend -n vg1 /dev/sdb1 
+29 vgextend vg1 /dev/sdb1
+​30 vgs 
+31 lvextend -n lv1 +100%FREE vg1 
+32 lvextend -l +100%FREE /dev/mapper/vg1-lv1 
+33 lvs 
+34 vgs 
+35 clear 
+36 df -h 
+37 lvdisplay 
+38 clear 
+39 vgdisplay 
+40 re​size2fs /dev/mapper/vg1-lv1 
+41 df -h 
+
+
+   cron (system administration command )
+like cron job
+
+*cd / etc | grep cron  --to get cron job directory
+
+*to get all running cron jobs in background
+sudo systemctl status cron.service
+
+crontab -e 
+ press 1 for nano
+ press 2 for vim 
+
+imp in cron video from 18:00 ( ssh command )
+
+htops system info
+iftop  (network info) checking in and from connection\
+atop
+netstat -antp ( check http tcp connection test)
+watch netstat 
+nload -i[number] maximum value  about data tranfer 
+nohup store logs nohup.out
+chroot 
+fsck check file system consistency
+nslookup google.com   get dns server values
+dig google.com       same above
+traceroute [option] host_address [pathlength]     print route packet takes to reach the host
+free -g -m      memory
+ps -aux
+
+
+
+
+
+
+
+
+DOCKERS!
+Chapter 1 & 2: Containers and Dockers
+virtual machine
+jo hardware h usi p nya operating system bnk dega,jispe ap kch bi chlaskte,
+2 software virtualbox ar vmware use hte,un operating system ko mazed hardwarek zarort ni
+phla system host os hoga
+hypervisor, virtual machine chlne m help krta, virtualization m help krta
+
+virtual machine vs container
+drawback, jab bi bnoga to hardware alot krdnga,actual machine k performane asr, hmn idea ni h k ktna resource chye hogi
+container resource dynaimc lega,isolated env m chla rha,jab application run krni hogi exmple linux to uslo run klye operating system s contact krega 
+ar container alot krdega,utni h resurce use higi just,ar puralag s system maintain ni krna,ek h container m sari chzn wrap
+name sapes,alg lg spaces m sara kam
+koi bi applucation run krne k lye environment build krna hta h, to docker m wo environment wrap up hijta h 
+tk ksi dosre user ko dobra environment build na krna pre
+phla ek server p ekapplication chlti thi,new appp nya server,1900s
+vmware n ek server p multiple app run k fascility di
+jo capacity hti use koutilize krk krtle the
+
+hr app ko dedicated system chye tha to operational expense brh jta tha,expendiure ar utilization ka idea ni hta phle s
+server jo apko koi app serve kre
+
+container isolated env m run hta,arunko guest host required ni hte,singlehost OS p h sare kam hte,
+jise resource utilization efficiently utilize hti h
+docker create and manage containers
+docker version,community and entrprise
+paas,plat form as a service, esa platform jispe hum servise d rae ap use kren
+docker --version, year,month,versio,yani major minor ar patcher release
+
+docker is combined with client and docker doemon
+client jo server ko request ya access kre
+docker denom-docker engine
+docker moby project-to break down docker into more modular componenets
+
+most of its project and tool written in golange (googles dev language)
+agr ap go k developer hn to docker m contribute krskte
+docker m kch chzn ese h jo lga ar hta skte, 3rd party k sth
+yani ap swap krskte docker native stuff with 3rd party stuff,ise unko profit gain krna mushkil,competion increase hogya, stadarize krna zarori hogya
+to wi system is qabiil bndya k 3rd party stuff replace na krna pre
+
+oci-open container initiative
+oci esa governing council h jo,2 chzn manage krrha image ar container run time
+image-hr bnda market m ak alg tareq s image na bnae,standarize method s container image create h-image format creted
+container runtime-y jo chlega usko method bi standerize
+
+coreoc n apna standerze image format ar container runtime appc k name sbnya
+ise user ar customer ka dielmma create hogya,qk standard change,mobile shopm kpre
+to iswja s oci n function m aya ar usne image format ar container run time spec publish kye (Chap 1 and 2 end)
+
+Ch 3: Installation
+Ch:4: The Big Picture
+chap divided into op and dev prespective
+operation is divided into client and daemon
+images- for operation perspective its isvirtual machine templateand for dev it is like a class,classesabinary code ya code h jise application chlri hti h
+for docker it is a stopped container,
+containts multiple set of layers,instruction to set up or scale up down any application
+container-image ka run time environmnet container khlata h
+docker container run -it ubuntu:latest (it flag attach the current terminal with co*ntainer terminal through daemon)
+ps -elf = running process info,ids etc
+ctrl+pq =container s bhr,ya deattach, 
+exit s bnd hjta container
+docker ps running container
+docker ps -a=all container
+sh vs bash : bash is revised and improved version of shell
+docker container exec -it agitated_visvesvaraya /bin/bash =container m kis command s jna h,krna kya jk,bash s container acces hoga
+containers are all about apps
+sudo docker rmi (images name)= images delete,rm s container remove, rmi s image delete
+html lkhna ka structure jse docker read krskare, combine of 6 headining
+
+ docker version
+  190  sudo docker image pull nginx:latest
+  191  docker images
+  192  sudo docker image pull ubuntu:latest
+  193  docker container run -it ubuntu:latest
+  194  docker container ls
+  195*
+  196  docker ps -a
+  197  docker container ls
+  198  docker container exec -it agitated_visvesvaraya /bin/bash
+  199  docker container stop agitated_visvesvaraya
+  200  docker container rm agitated_visvesvaraya
+  201  docker container ls
+
+buidling container 
+
+mkdir docker
+  209  cd docker
+  210  nano index.html
+  211  cat index.html
+  212  nano index.html
+  213  docker images
+  214  sudo docker inspect ubntu:latest
+  215  sudo docker inspect ubuntu:latest
+  216  sudo docker run --name my container -d -p
+  217  sudo docker build -t dock-container:v2
+  218  ls
+  219  nano Dockerfile
+  220  sudo docker build -t dock-container:v2
+  221  ls
+  222  cat Dockerfile
+  223  sudo docker build -t dock-container:v2 .
+  224  docker images
+  225  sudo docker run --name my container -d -p 8081:80 dock-container:v2
+  226  sudo docker run -d --name my-container -p 8081:80 dock-container:v2
+  227  docker ps
+  228  docker stop my-container
+  229  docker start my-container
+  230  sudo docker exec -it my-container /bin/bash
+  231  docker ps
+  232  docker stop 4c
+  233  docker rm 4c
+  234  docker ps
+
+Ch:5 Docker Engine
+it runs and manage containers and refer as docker or docker platforrm
+docker engine is modular- things can be add here just like car engine
+made from specialized tools that run and create images-images,api etc
+it is divided into docker client (command line) and 
+daemon (jo y sab receive krk deep down lk jrha)
+Docker engine 2 main components:
+docker daemon-monolithic binary(Tightly coupled code,binary means executable files)
+LXC: it provides daemon with the access of the fundaamental /block of container
+such as kernel namespaces and control grouo -managing res of container
+LXC was only linux specific, as a result docker build tool called libcontainer, and now can acces 
+  fundamnetal block of container user multi platform or OS
+
+Getting rid of monoclithic docker daemon:
+hard to innovate
+slow
+so they break out their functionality as much possible
+
+Docker architecture:
+docker client -CLI
+docker daemon- API and other function, receive instruction of docker client
+containerd- managing containers,act as bridge b/w daemon and runc, 
+    act on client instructions, starting,pausing and stopping container
+shim -enable daemonless containers, shim daemonless container chlaega, 
+     runc p run krega ar environment bnega
+runc -supervising container run time,
+container running
+ss
+some major functonality still exist in docker daemon
+image management,image building , security code,networking, rest API 
+   (code k code s btchet through application programmming interface)
+purpose of container is to run application
+
+push docker image to docker hub- to do
+docker hub has conept of official means images vissited by 
+   docker inc- contain uptodate  high quality code
+unofficial means local repositry- well not proper documented or safe 
+    and may not prepared with best practices
+if not given tag while pulling image docker will consider it latest
+can't rectify images-can create new image for container
+docker image pull username/repositry:tag
+
+layers: set of instruction to docker to create image
+docker image inspect image:tag
+layers in hash form-security
+hash- no human read able data,dobra reverse ni hoskta,
+   passwordko hash d dedya to fix hogya hash
+dockeremplystorage driverwhich is reponsible for 
+   stacking layer and presenting themassingle unified filesystem
+only driver supported by window iswindows filter
+for linus- aufs,overlay2,devicemapper, btrfs and zfs
+
+multiple image can doand share layers for efficient performane
+alreday layers same repositry khngi dobra ni laegapull krk layer ko docker+
