@@ -1,3 +1,239 @@
+DOCKERS!
+
+BOOK "DOCKER DEEP DIVE"
+
+Chapter 1 & 2: Containers and Dockers
+
+virtual machine:
+jo hardware h usi p nya operating system bnk dega,jispe ap kch bi chlaskte,
+2 software virtualbox ar vmware use hte,un operating system ko mazed hardwarek zarort ni
+phla system host os hoga
+hypervisor, virtual machine chlne m help krta, virtualization m help krta
+
+virtual machine vs container
+drawback, jab bi bnoga to hardware alot krdnga,actual machine k performane asr, hmn idea ni h k ktna resource chye hogi
+container resource dynaimc lega,isolated env m chla rha,jab application run krni hogi exmple linux to uslo run klye operating system s contact krega 
+ar container alot krdega,utni h resurce use higi just,ar puralag s system maintain ni krna,ek h container m sari chzn wrap
+name sapes,alg lg spaces m sara kam
+koi bi applucation run krne k lye environment build krna hta h, to docker m wo environment wrap up hijta h 
+tk ksi dosre user ko dobra environment build na krna pre
+phla ek server p ekapplication chlti thi,new appp nya server,1900s
+vmware n ek server p multiple app run k fascility di
+jo capacity hti use koutilize krk krtle the
+
+hr app ko dedicated system chye tha to operational expense brh jta tha,expendiure ar utilization ka idea ni hta phle s
+server jo apko koi app serve kre
+
+container isolated env m run hta,arunko guest host required ni hte,singlehost OS p h sare kam hte,
+jise resource utilization efficiently utilize hti h
+docker create and manage containers
+docker version,community and entrprise
+paas,plat form as a service, esa platform jispe hum servise d rae ap use kren
+docker --version, year,month,versio,yani major minor ar patcher release
+
+docker is combined with client and docker doemon
+client jo server ko request ya access kre
+docker denom-docker engine
+docker moby project-to break down docker into more modular componenets
+
+most of its project and tool written in golange (googles dev language)
+agr ap go k developer hn to docker m contribute krskte
+docker m kch chzn ese h jo lga ar hta skte, 3rd party k sth
+yani ap swap krskte docker native stuff with 3rd party stuff,ise unko profit gain krna mushkil,competion increase hogya, stadarize krna zarori hogya
+to wi system is qabiil bndya k 3rd party stuff replace na krna pre
+
+oci-open container initiative
+oci esa governing council h jo,2 chzn manage krrha image ar container run time
+image-hr bnda market m ak alg tareq s image na bnae,standarize method s container image create h-image format creted
+container runtime-y jo chlega usko method bi standerize
+
+coreoc n apna standerze image format ar container runtime appc k name sbnya
+ise user ar customer ka dielmma create hogya,qk standard change,mobile shopm kpre
+to iswja s oci n function m aya ar usne image format ar container run time spec publish kye (Chap 1 and 2 end)
+
+Ch 3: Installation
+
+Ch:4: The Big Picture
+
+chap divided into op and dev prespective
+operation is divided into client and daemon
+images- for operation perspective its isvirtual machine templateand for dev it is like a class,classesabinary code ya code h jise application chlri hti h
+for docker it is a stopped container,
+containts multiple set of layers,instruction to set up or scale up down any application
+container-image ka run time environmnet container khlata h
+docker container run -it ubuntu:latest (it flag attach the current terminal with co*ntainer terminal through daemon)
+ps -elf = running process info,ids etc
+ctrl+pq =container s bhr,ya deattach, 
+exit s bnd hjta container
+docker ps running container
+docker ps -a=all container
+sh vs bash : bash is revised and improved version of shell
+docker container exec -it agitated_visvesvaraya /bin/bash =container m kis command s jna h,krna kya jk,bash s container acces hoga
+containers are all about apps
+sudo docker rmi (images name)= images delete,rm s container remove, rmi s image delete
+html lkhna ka structure jse docker read krskare, combine of 6 headining.
+
+Ch:5 Docker Engine
+
+it runs and manage containers and refer as docker or docker platforrm
+docker engine is modular- things can be add here just like car engine
+made from specialized tools that run and create images-images,api etc
+it is divided into docker client (command line) and 
+daemon (jo y sab receive krk deep down lk jrha)
+Docker engine 2 main components:
+docker daemon-monolithic binary(Tightly coupled code,binary means executable files)
+LXC: it provides daemon with the access of the fundaamental /block of container
+such as kernel namespaces and control grouo -managing res of container
+LXC was only linux specific, as a result docker build tool called libcontainer, and now can acces 
+  fundamnetal block of container user multi platform or OS
+
+Getting rid of monoclithic docker daemon:
+hard to innovate
+slow
+so they break out their functionality as much possible
+
+Docker architecture:
+docker client -CLI
+docker daemon- API and other function, receive instruction of docker client
+containerd- managing containers,act as bridge b/w daemon and runc, 
+    act on client instructions, starting,pausing and stopping container
+shim -enable daemonless containers, shim daemonless container chlaega, 
+     runc p run krega ar environment bnega
+runc -supervising container run time,
+container running
+ss
+some major functonality still exist in docker daemon
+image management,image building , security code,networking, rest API 
+   (code k code s btchet through application programmming interface)
+purpose of container is to run application
+
+push docker image to docker hub- to do
+docker hub has conept of official means images vissited by 
+   docker inc- contain uptodate  high quality code
+unofficial means local repositry- well not proper documented or safe 
+    and may not prepared with best practices
+if not given tag while pulling image docker will consider it latest
+can't rectify images-can create new image for container
+docker image pull username/repositry:tag
+
+layers: set of instruction to docker to create image
+docker image inspect image:tag
+layers in hash form-security
+hash- no human read able data,dobra reverse ni hoskta,
+   passwordko hash d dedya to fix hogya hash
+dockeremplystorage driverwhich is reponsible for 
+   stacking layer and presenting themassingle unified filesystem
+only driver supported by window iswindows filter
+for linus- aufs,overlay2,devicemapper, btrfs and zfs
+
+multiple image can doand share layers for efficient performane
+alreday layers same repositry khngi dobra ni laegapull krk layer ko docker.
+
+Images:
+
+Images become containers when they run on docker engine
+images are build of multiple layers that stacked (aik ke upr aik ) represented as single object
+
+images all files when run it become container
+
+cut down operating system ( no need of operating system file system of lenux )
+
+one time download of any image it will automaticaly reuse
+
+container need images need to delete all dependend container to delete image
+
+light weight only take important file
+
+Image registries:
+
+docker images are stored in image registries
+
+images store in docker hub ( default )
+
+image registries contain many repositories ( means different version of files alpine, latest)
+image repositories can have different images ( alpine v1,alpinev2...)
+
+official repositories (varified by docker)
+unofficial repositories  (our images )
+you can make image privite
+
+images naming and tagging
+
+*official images
+docker image pull nginx:latest (tags, versions)
+   publisher should mark version latest
+
+*unofficial images
+docker image pull aamirpinger/helloworld:latest
+                           username .. imagname .. version
+
+containerizing mean making app and run as container
+
+start with app code
+
+##CODE
+create Dockerfile ( that describe your app,its dependencies and how to run it )
+
+feed this Dockerfile into the docker image(our step in DFile docker make them layers)
+         build command to create images
+         work in local system crate image put them in docker hub
+         
+
+Dockerfile
+docker can build images automatically by reading the instruction
+
+Two purpose:
+describe application
+tell docker how to containerize
+
+nginx is a server(a place where we host(keep) our website )
+
+now for simple static page (html css javascript)
+
+docker version
+sudo docker image pull nginx:latest
+docker images
+sudo docker image pull ubuntu:latest
+docker container run -it ubuntu:latest
+docker container ls
+docker ps -a
+docker container ls
+docker container exec -it agitated_visvesvaraya /bin/bash
+docker container stop agitated_visvesvaraya
+docker container rm agitated_visvesvaraya
+docker container ls
+
+Buidling containers: 
+
+mkdir docker
+cd docker
+nano index.html
+cat index.html
+nano index.html
+docker images
+sudo docker inspect ubntu:latest
+sudo docker inspect ubuntu:latest
+sudo docker run --name my container -d -p
+sudo docker build -t dock-container:v2
+ls
+nano Dockerfile
+sudo docker build -t dock-container:v2
+ls
+cat Dockerfile
+sudo docker build -t dock-container:v2 .
+docker images
+sudo docker run --name my container -d -p 8081:80 dock-container:v2
+sudo docker run -d --name my-container -p 8081:80 dock-container:v2
+docker ps
+docker stop my-container
+docker start my-container
+sudo docker exec -it my-container /bin/bash
+docker ps
+docker stop 4c
+docker rm 4c
+docker ps
+
+
 docker --version
 docker -compose version
 docker info
@@ -26,7 +262,7 @@ docker push UserName/imageName
 docker run -d --name anynameyouwant -p 8001:80 OrignalImageName
 docker run -d --name NewName -v~/Your FolderLocation:/app ImageName
 OR
-      docker run -d -p 3009:80 -v /'Maazullah Khan Warsi'/Desktop/'docker app'/nod_project:/usr/share/nginx/html maazd:v1
+docker run -d -p 3009:80 -v /'Maazullah Khan Warsi'/Desktop/'docker app'/nod_project:/usr/share/nginx/html maazd:v1
 
 docker exec -it NameThatYouGive sh  (sh for shell)
 cd app
@@ -44,76 +280,6 @@ docker-compose up        ( run )
 docker-compose down  (stop)
 docker-compose up -d   (run background)
 
-BOOK DOCKER DEEP DIVE
-
-Chapter 1 & 2: Containers and Dockers
-
-virtual machine
-jo hardware h usi p nya operating system bnk dega,jispe ap kch bi chlaskte,
-2 software virtualbox ar vmware use hte,un operating system ko mazed hardwarek zarort ni
-phla system host os hoga
-hypervisor, virtual machine chlne m help krta, virtualization m help krta
-
-virtual machine vs container
-
-drawback, jab bi bnoga to hardware alot krdnga,actual machine k performane asr, hmn idea ni h k ktna resource chye hogi
-
-container resource dynaimc lega,isolated env m chla rha,jab application run krni hogi exmple linux to uslo run klye operating system s contact krega 
-ar container alot krdega,utni h resurce use higi just,ar pura alag  system maintain ni krna,ek h container m sari chzn wrap
-
-name sapes,alg lg spaces m sara kam
-koi bi application run krne k lye environment build krna hta h, to docker m wo environment wrap up hijta h 
-tk ksi dosre user ko dobra environment build na krna pre
-phla ek server p ek application chlti thi,new appp nya server,1900s
-vmware n ek server p multiple app run k fascility di
-jo capacity hti use ko utilize kr k krtle the
-
-hr app ko dedicated system chye tha to operational expense brh jta tha,expendiure ar utilization ka idea ni hta phle s
-server jo apko koi app serve kre
-
-container isolated env m run hta,ar unko guest host required ni hte,singlehost OS p h sare kam hte,
-jise resource utilization efficiently utilize hti h
-
-docker create and manage containers
-
-docker version,community and entrprise
-paas,plat form as a service, esa platform jispe hum servise d rae ap use kren
-docker --version, year,month,versio,yani major minor ar patcher release
-
-docker is combined with client and docker doemon
-client jo server ko request ya access kre
-docker denom-docker engine
-docker moby project-to break down docker into more modular componenets
-
-most of its project and tool written in Go language (googles dev language)
-agr ap go k developer hn to docker m contribute krskte
-docker m kch chzn ese h jo lga ar hta skte, 3rd party k sth
-yani ap swap krskte docker native stuff with 3rd party stuff,ise unko profit gain krna mushkil,competion increase hogya, stadarize krna zarori hogya
-to wi system is qabiil bndya k 3rd party stuff replace na krna pre
-
-oci-open container initiative
-oci esa governing council h jo,2 chzn manage krrha image ar container run time
-
-image-hr bnda market m ak alg tareq s image na bnae,standarize method s container image create h-image format creted
-container runtime-y jo chlega usko method bi standerize
-
-coreoc n apna standerze image format ar container runtime appc k name sbnya
-ise user ar customer ka dielmma create hogya,qk standard change,mobile shop m kpre
-to iswja s oci n function m aya ar usne image format ar container run time spec publish kye (Chap 1 and 2 end)
-
-Ch 3: Installation
-
-Ch:4: The Big Picture
-
-chap divided into op and dev prespective
-
-operation is divided into client and daemon
-images- for operation perspective its a virtual machine template and for dev it is like a class,classes binary code ya code h jise application chlri hti h
-for docker it is a stopped container,
-
-containts multiple set of layers,instruction to set up or scale up down any application
-container-image ka run time environmnet container khlata h
-
 *
 docker container run -it ubuntu:latest (it flag attach the current terminal with co*ntainer terminal through daemon)
 ps -elf = running process info,ids etc
@@ -130,141 +296,7 @@ containers are all about apps
 *sudo docker rmi (images name)= images delete,rm s container remove, rmi s image delete
 
 html lkhna ka structure jse docker read krskare, combine of 6 headining
-
-Ch:5 Docker Engine
-
-it runs and manage containers and refer as docker or docker platforrm
-docker engine is modular- things can be add here just like car engine
-made from specialized tools that run and create images-images,api etc
-
-it is divided into docker client (command line) and 
-daemon (jo y sab receive krk deep down lk jrha)
-
-Docker engine 2 main components:
-docker daemon-monolithic binary(Tightly coupled code,binary means executable files)
-
-LXC: it provides daemon with the access of the fundaamental /block of container
-such as kernel namespaces and control grouo -managing res of container
-
-LXC was only linux specific, as a result docker build tool called libcontainer, and now can acces 
-  fundamnetal block of container user multi platform or OS
-
-Getting rid of monoclithic docker daemon:
-hard to innovate
-slow
-so they break out their functionality as much possible
-
-Docker architecture:
-docker client -CLI
-docker daemon- API and other function, receive instruction of docker client
-
-containerd- managing containers,act as bridge b/w daemon and runc, 
-    act on client instructions, starting,pausing and stopping container
-
-shim -enable daemonless containers, shim daemonless container chlaega, 
-     runc p run krega ar environment bnega
-
-runc -supervising container run time,
-container running
-
-some major functonality still exist in docker daemon
-image management,image building , security code,networking, rest API 
-   (code k code s btchet through application programmming interface)
-
-purpose of container is to run application
-
-push docker image to docker hub- to do
-
-docker hub has conept of official means images vissited by  appache nginx ubuntu
-   docker inc- contain uptodate  high quality code
-
-unofficial means local repositry- well not proper documented or safe 
-    and may not prepared with best practices
-
-if not given tag while pulling image docker will consider it latest
-can't rectify images-can create new image for container
-
-docker image pull username/repositry:tag
-
-layers: set of instruction to docker to create image
-*docker image inspect image:tag
-
-layers in hash form-security
-
-hash- no human read able data,dobra reverse ni hoskta,
-   passwordko hash d dedya to fix hogya hash
-
-docker empty storage driver which is reponsible for 
-   stacking layer and presenting them as single unified filesystem
-
-only driver supported by window iswindows filter
-for linux- aufs,overlay2,devicemapper, btrfs and zfs
-
-multiple image can do and share layers for efficient performance
-already layers same repositry khngi dobra ni laegapull krk layer ko docker+
-
-
-
-                          images
-Images become containers when they run on docker engine
-images are build of multiple layers that stacked (aik ke upr aik ) represented as single object
-
-images all files when run it become container
-
-cut down operating system ( no need of operating system file system of lenux )
-
-one time download of any image it will automaticaly reuse
-
-container need images need to delete all dependend container to delete image
-
-light weight only take important file
-
-          image registries
-
-docker images are stored in image registries
-
-images store in docker hub ( default )
-
-image registries contain many repositories ( means different version of files alpine, latest)
-image repositories can have different images ( alpine v1,alpinev2...)
-
-official repositories (varified by docker)
-unofficial repositories  (our images )
-you can make image privite
-
-images naming and tagging
-
-*official images
-docker image pull nginx:latest (tags, versions)
-   publisher should mark version latest
-
-*unofficial images
-docker image pull aamirpinger/helloworld:latest
-                           username .. imagname .. version
-
-containerizing mean making app and run as container
-
-start with app code
-
-                     ##CODE
-create Dockerfile ( that describe your app,its dependencies and how to run it )
-
-feed this Dockerfile into the docker image(our step in DFile docker make them layers)
-         build command to create images
-         work in local system crate image put them in docker hub
-         
-
-   Dockerfile
-
-docker can build images automatically by reading the instruction
-
-two purpose
-describe application
-tell docker how to containerize
-
-nginx is a server(a place where we host(keep) our website )
-
-now for simple static page (html css javascript)
+       
 
 in Dockerfile:#
  from nginx (get nginx from docker hub)
