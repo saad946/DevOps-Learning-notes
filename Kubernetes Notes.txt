@@ -1,3 +1,4 @@
+https://kubernetes.io/docs/home/
 https://www.redhat.com/en/technologies/cloud-computing/openshift
 https://docs.openshift.com/container-platform/4.6/architecture/architecture-rhcos.html
 https://www.redhat.com/en/technologies/cloud-computing/openshift/container-platform
@@ -18,41 +19,23 @@ esc
 / search   (press n for next )
 ? backward search
 
-
 kubectl expose deployment nginx --type=ClusterIP --port=8080 --target-port=80 --name=nginx-clusterip-svc
-
 kubectl run alpine --image=alpine --requests=cpu=200m,memory=256Mi --limits=cpu=400m,memory=512Mi
-
 kubectl create deployment ubuntu --image=ubuntu --replicas=2 -- sleep 500 --port=80
-
 kubectl create job whizlab --image=ubuntu -- sleep 200
-
 kubectl create cronjob whizlabs --image=ubuntu --schedule="* * * * *" -- sleep 300
-
 kubectl create role role123 --verb=get,list --resources=pods,services
-
 kubectl create clusterrole clusterrole123 --verb=get,list --resources=pods,services
-
 kubectl create rolebinding rb123 --role=role123 --serviceaccount=default:whizlabs
-
 kubectl create clusterrolebinding rb123 --role=clusterrole123 --serviceaccount=default:whizlabs
-
 kubectl create deployment nginx --dry-run=client -o yaml
-
 kubectl expose deployment nginx --type=ClusterIP --port-80 --name=nginx-svc --dry-run=client -o yaml
-
 kubectl create sa whizlabs --dry-run=client -o yaml
-
 kubectl run alpine --image=alpine --requests=cpu=200m,memory=256Mi --limits=cpu=400m,memory=512Mi --dry-run=client -o yaml
-
 kubectl create role role123 --verb=get,list --resources=pods,services --dry-run=client -o yaml
-
 kubectl create rolebinding rb123 --role=role123 --serviceaccount=default:whizlabs --dry-run=client -o yaml
-
 kubectl autoscale rs my-repl --min=2 --max=5 --cpu-percent=80
-
 kubectl get pod -l env=rt   ( or "type in (,)" ) --show-labels
-
 kubectl rolllout status/history/undo/pause/resume/ deployment mydepl --to-revision=1
 
 extra info in 3
@@ -81,18 +64,12 @@ resources
 security context
 init containers
 
-
-
 What is Kubernetes
 
 Service for container cluster management
-
 Open Sourced by Google
-
 Support GCE, CoreOS, Azure,vSphere
-
 Used to manage Docker containers as a default implementation
-
 Kubernetes Architecture
 
 
@@ -162,9 +139,7 @@ kubectl get nodes or kubectl get no
 * description of nodes
 kubectl describe node NodeName
 
-    PODS
-
-
+PODS:
 should have containerized application
 
 in kuber first create pod then run container in pod
@@ -304,23 +279,15 @@ exit from shell through ctrl+z
 Labels
 
 Uptil now we have successfully create a pod having one container
-
 theoratically we have learnt that kubern does help creating nth number of replicas (containers or pods)
-
 theotatically we have learnt that kubern can group pods providing at a single static ip address
-
-think of situation where you have hundred of pods with multiple replicas
-
+think of situation where you have hundred of pods with multiple replica
 we do replicas to scale the app and use labels to know where or how many they are
-
 kubern organize pods with the help of labels
-
 labels are simple key/value pair that kubern uses with almost all the resources(pods,jobs...) it creates to group
-
 kubern give option to filter the resources by providin label criteria
-
 multiple labels can be assigned to any resource and they become part of resource
-  group having with same labels
+group having with same labels
 
 at a time of resource creation or even  you can assign 
      or change label value after creation of the resource
@@ -1345,8 +1312,6 @@ gcePersistentDisk
 awsElasticBlockStore
 azureDISk
 
-
-
 metadata:
    name:firstpod1
    labels: (if not run assign labels after pod creation)
@@ -1459,23 +1424,13 @@ Authentication
 kube apiServer provide access to all 
   etcd cluster, kubelet, kube scheduler, kube proxy
   kube controller manager
-
-
-
 authentication between
-
  admins, developers, boots    , end user
-
-
 create service
 *kubectl create serviceaccount sa1
-
 auth mechanism use to verify on following basis
-
 static password, static token file, certificates
-
 * for static password
-
 *vi user-detail.csv
 password123,user1,u0001
 password124,user2,u0002
@@ -1488,7 +1443,6 @@ kube-apiserver.service
 
 
 * for token file
-
 vi tocken-user.csv
    123erfghj765,user1,group1
     234567i8jbhv,user2,group1
@@ -1500,29 +1454,19 @@ kube-apiserver.service
 
 
 vi /etc/kubernetes/manifests/kube-apiserver.yaml
-
-
-
 for token auth
 curl -v -k htttps://master-node-ip:6443/api/v1/pods 
                  --header "Authorization: Bearer 234567890dr"
 
 - not recommonded way to mechanism
-
-
   kubeconfig file
-
  in this file we manage previous users 
-
 clusters:
  name of different clusters
-
 context:
  name list of uzers in related to all cluster u name
-
 users:
  name of users
-
 *
 kubectl config view
 * to change current-context
@@ -1548,15 +1492,12 @@ each api has own diff resources
 
 create proxy for creating athantication
 kubectl proxy
-
  
 Role based Access Controls
 kubectl auth can-i create deployments
 kubectl auth can-i delete nodes
 kubectl auth can-i create deployments --as dev-user
 kubectl auth can-i create pods --as dev-user
-
-
 
 types to identify 
 
@@ -1583,12 +1524,8 @@ cluster roles
       cluster-roles yaml
       cluster-role-binding yaml
                             also for name space
-
-
 Admission controllers
-
 when need more control on images users
-
 Always pull images
 default storage class
 event rate limit
@@ -1608,9 +1545,7 @@ by following 4 roles
 updation of apiVersion
 need (kubectl convert) command not avalable by default need to download
 
-
 https://kubernetes.io/docs/reference/using-api/deprecation-policy/
-
 CRD is used to create own resources
 
 apiversion
@@ -1640,131 +1575,22 @@ operator is used to combine both CRD, Custom controller
 
 blue/ green deployment  
 
-create both
- 
+create both 
 blue ( old version replicas)  green (new version replicas )
-
 then just change sellector in service to version 2 green replicas
 
+Helm Commands:
 
 helm search wordpress
-
 helm repo add bitnami https://charts.bitnami.com/bitnami
-
 helm search repo joomla
-
 helm list  ( running)
 helm repo list 
-
 helm install bravo bitnami/drupal
-
 helm uninstall bravo
-
 helm pull --untar bitnami/apache   (only pull like image )
 
-
 canray
- create one version replica with same seloctor as old version 
+create one version replica with same seloctor as old version 
 connect them through 
 
-All revision previous
-helm
-crd
-service account
-docker commands
-taints and tolerations
-monitoring
-pvc test
-init multi container
-storage in statefulset
-2021
-practice
-
-maaz@DESKTOP-8INOQC6:~/my1pod$ k get po
-NAME         READY   STATUS             RESTARTS       AGE
-pod2         0/1     ImagePullBackOff   0              5h58m
-saadpod      1/1     Running            0              26m
-saadpod2     1/1     Running            0              15m
-shell-demo   1/2     CrashLoopBackOff   23 (69s ago)   4h29m
-maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
-maaz@DESKTOP-8INOQC6:~$ mkdir my2pod
-maaz@DESKTOP-8INOQC6:~$ cp pod3.yaml /home/my2pod
-cp: cannot stat 'pod3.yaml': No such file or directory
-maaz@DESKTOP-8INOQC6:~$ cp /my1pod/pod3.yaml /home/my2pod
-cp: cannot stat '/my1pod/pod3.yaml': No such file or directory
-maaz@DESKTOP-8INOQC6:~$ cd my1pod
-maaz@DESKTOP-8INOQC6:~/my1pod$ ls
-newFile  pod3.yaml
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp pod3.yaml /home/my2pod/
-cp: cannot create regular file '/home/my2pod/': Not a directory
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp pod3.yaml /home/my2pod
-cp: cannot create regular file '/home/my2pod': Permission denied
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp pod3.yaml my2pod/
-cp: cannot create regular file 'my2pod/': Not a directory
-maaz@DESKTOP-8INOQC6:~/my1pod$ cd..
-cd..: command not found
-maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
-maaz@DESKTOP-8INOQC6:~$ cp pod3.yaml my2pod/
-cp: cannot stat 'pod3.yaml': No such file or directory
-maaz@DESKTOP-8INOQC6:~$ cd my1pod
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp pod3.yaml my2pod/
-cp: cannot create regular file 'my2pod/': Not a directory
-maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
-maaz@DESKTOP-8INOQC6:~$ cd -R /home/my1pod/pod3.yaml /home/my2pod/
--bash: cd: -R: invalid option
-cd: usage: cd [-L|[-P [-e]] [-@]] [dir]
-maaz@DESKTOP-8INOQC6:~$ cp -R /home/my1pod/pod3.yaml /home/my2pod/
-cp: cannot stat '/home/my1pod/pod3.yaml': No such file or directory
-maaz@DESKTOP-8INOQC6:~$ cd my1pod
-maaz@DESKTOP-8INOQC6:~/my1pod$ ls
-newFile  pod3.yaml
-maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
-maaz@DESKTOP-8INOQC6:~$ cd -
-/home/maaz/my1pod
-maaz@DESKTOP-8INOQC6:~/my1pod$ ls -l
-total 8
--rw-r--r-- 1 maaz maaz 2595 Oct  2 19:20 newFile
--rw-r--r-- 1 maaz maaz  146 Oct  2 18:56 pod3.yaml
-maaz@DESKTOP-8INOQC6:~/my1pod$ chown 777 pod3.yaml
-chown: changing ownership of 'pod3.yaml': Operation not permitted
-maaz@DESKTOP-8INOQC6:~/my1pod$ sudo chown 777 pod3.yaml
-[sudo] password for maaz:
-maaz@DESKTOP-8INOQC6:~/my1pod$ ls -l
-total 8
--rw-r--r-- 1 maaz maaz 2595 Oct  2 19:20 newFile
--rw-r--r-- 1  777 maaz  146 Oct  2 18:56 pod3.yaml
-maaz@DESKTOP-8INOQC6:~/my1pod$ sudo chmod 777 pod3.yaml
-maaz@DESKTOP-8INOQC6:~/my1pod$ ls -l
-total 8
--rw-r--r-- 1 maaz maaz 2595 Oct  2 19:20 newFile
--rwxrwxrwx 1  777 maaz  146 Oct  2 18:56 pod3.yaml
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp  /home/my1pod/pod3.yaml /home/my2pod/
-cp: cannot stat '/home/my1pod/pod3.yaml': No such file or directory
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp  /home/my1pod/pod3.yaml /home/my2pod/
-cp: cannot stat '/home/my1pod/pod3.yaml': No such file or directory
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp  /my1pod/pod3.yaml /home/my2pod/
-cp: cannot stat '/my1pod/pod3.yaml': No such file or directory
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp  pod3.yaml /home/my2pod/
-cp: cannot create regular file '/home/my2pod/': Not a directory
-maaz@DESKTOP-8INOQC6:~/my1pod$ cp  pod3.yaml my2pod/
-cp: cannot create regular file 'my2pod/': Not a directory
-maaz@DESKTOP-8INOQC6:~/my1pod$ cd ..
-maaz@DESKTOP-8INOQC6:~$ cp  pod3.yaml my2pod/
-cp: cannot stat 'pod3.yaml': No such file or directory
-maaz@DESKTOP-8INOQC6:~$ cd my1pod
-maaz@DESKTOP-8INOQC6:~/my1pod$ cat pod3.yaml
-kind: Pod
-apiVersion: v1
-metadata:
-  name: saadpod
-spec:
-  containers:
-  - name: saadcon
-    image: maazd:v1
-    ports:
-    - containerPort: 80
-
-
---restart=Never   ( never=when no manager )
-                               (  always = deployment )
-                               ( onfailure = job )
