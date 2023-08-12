@@ -1,0 +1,102 @@
+   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+   helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+   helm repo update
+   helm install prometheus prometheus-community/kube-prometheus-stack
+   helm search repo prometheus-community
+   helm install prometheus prometheus-community/kube-prometheus-stack --version ".."
+   helm install alerts  prometheus-community/kube-prometheus-stack
+   helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --namespace prometheus
+   helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --namespace
+   helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --namespace
+   kubectl helm install kube-prometheus-stack  prometheus-community/kube-prometheus-stack --set prometheus-node-exporter.hostRootFsMount.enabled=false -n prometheus
+   kubectl helm install kube-prometheus  prometheus-community/kube-prometheus-stack --set prometheus-node-exporter.hostRootFsMount.enabled=false -n prometheus
+   helm install kube-prometheus  prometheus-community/kube-prometheus-stack --set prometheus-node-exporter.hostRootFsMount.enabled=false -n prometheus
+   kubectl create ns  prometheus
+ * helm install kube-prometheus  prometheus-community/kube-prometheus-stack --set prometheus-node-exporter.hostRootFsMount.enabled=false -n prometheushelm install kube-prometheus  prometheus-community/kube-prometheus-stack --set prometheus-node-exporter.hostRootFsMount.enabled=false -n prometheus
+ 
+   kubectl get secret prometheus-kube-prometheus-kube-prome-prometheus -oyaml -n prometheus > secret.yaml
+   vi secret.yaml
+   kubectl get cm prometheus-kube-prometheus-kube-prome-prometheus-rulefiles- -oyaml -n prometheus > config.yaml
+ 
+   kubectl port-forward deploy/kube-prometheus-grafana  -n prometheus
+   kubectl port-forward deploy/kube-prometheus-kube-prome-operator  -n prometheus
+   kubectl port-forward kube-prometheus-kube-prome-operator  -n prometheus
+   kubectl get po -n prometheus
+   kubectl port-forward kube-prometheus-kube-prome-operator  -n prometheus
+   kubectl port-forward prometheus-kube-prometheus-kube-prome-prometheus-  -n prometheus
+   kubectl get servicemonitor -n prometheus
+   kubectl get crd
+   kubectl get crd prometheuses.monitoring.coreos.com -oyaml | grep -i label
+   kubectl get crd prometheuses.monitoring.coreos.com -oyaml | grep -i matchlabel
+   kubectl get crd prometheuses.monitoring.coreos.com -oyaml
+   kubectl get crd prometheuses.monitoring.coreos.com -oyaml | grep -i servicemonitorselector
+   kubectl get crd prometheuses.monitoring.coreos.com -oyaml > jj.yaml
+   kubectl get servicemonitor -n prometheus
+ 
+   kubectl get servicemonitor kube-prometheus-kube-prome-kube-controller-manager -oyaml -n prometheus
+   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+   helm show values prometheus-community/prometheus-mongodb-exporter
+   helm show values prometheus-community/prometheus-mongodb-exporter > values.yaml
+ * kubectl get servicemonitor kube-prometheus-kube-prome-kube-controller-manag
+   helm install mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml
+   helm ls
+   kubectl get po
+   kubectl describe po mongodb-deployment-cddc-gtsv
+   docker pull mongo
+   kubectl get po
+   kubectl describe po mongodb-deployment-cddc-gtsv
+   kubectl get deploy
+   kubectl edit deploy mongodb-deployment
+   kubectl get po
+   kubectl get svc
+   kubectl get servicemonitor -n prometheus
+   kubectl get servicemonitor
+values.yaml
+   helm install mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml
+   helm ls
+   helm uninstall mongodb-deployment
+   helm uninstall mongodb-exporter
+   helm install mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml
+   kubectl get servicemonitor -n prometheus
+   kubectl get servicemonitor
+   helm uninstall mongodb-exporter
+   helm install mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml -n  prometheus
+ 
+   helm install black prometheus-community/prometheus-blackbox-exporter --values values.yaml -n prometheus-blackbox-exporter
+   kubectl get all -n prometheus-blackbox-exporter
+   kubectl get cm -n prometheus-blackbox-exporter
+   kubectl describe configmap black-prometheus-blackbox-exporter -n prometheus-blackbox-exporter
+   helm ls -A
+   helm uninstall kube-prometheus  -n  prometheus
+   helm install prom prometheus-community/kube-prometheus-stack --values prome.yaml -n  prometheus
+   kubectl get all -n prometheus
+   helm uninstall prom -n prometheus
+   helm install prom prometheus-community/kube-prometheus-stack --values prome.yaml -n  prometheus  --set prometheus-node-exporter.hostRootFsMount.enabled=false
+   kubectl get all -n prometheus
+   kubectl apply -f nginx.yaml
+   kubectl apply -f nginx.yaml
+   kubectl get all -
+   kubectl get all
+   helm ls
+   helm uninstall my-aws-container-insight-fluent-bit
+   helm uninstall ws-container-insight-fluent-bit-..
+   helm ls
+   kubectl get all
+   kubectl delete deploy ws-container-insight-fluent-bit-..
+   kubectl delete deploy mongodb-deployment
+   kubectl get all
+   kubectl delete svc mongodb-deployment
+   kubectl delete svc mongodb-service
+   kubectl get all
+   kubectl delete job alerts-kube-prometheus-sta-admission-create prometheus-kube-prometheus-admission-create
+   kubectl get all
+   helm install black prometheus-community/prometheus-blackbox-exporter --values blackbox.yaml -n prometheus
+   kubectl get ns
+   kubectl delete ns prometheus-blackbox-exporter
+   kubectl port-forward svc/prom-kube-prometheus-stack-prometheus : -n prometheus
+   kubectl port-forward svc/prom-kube-prometheus-stack-prometheus : -n prometheus
+   kubectl create ns posting-service
+   kubectl create -f test.yaml -n posting-service
+  helm uninstall prom -n  prometheus
+   helm install prom prometheus-community/kube-prometheus-stack --values prome.yaml -n  prometheus  --set prometheus-node-exporter.hostRootFsMount.enabled=false
+   kubectl get secret prom-grafana -oyaml -n prometheus
