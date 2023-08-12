@@ -1,0 +1,13 @@
+kubectl get secret  argocd-initial-admin-secret -oyaml -n argocd
+echo "TGQ3M2dtaGVgfreYwWnR6Sg==" | base64 -d
+Ld73gmhePHF0ZtzJ
+kubectl port-forward svc/argocd-server -n argocd 8080:80
+ssh-keygen -t ed25519 -C "saadullah94@gmail.com"
+/home/saad/.ssh/id_ed25519.pub
+cat /home/saad/.ssh/id_ed25519.pub
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIfrewf7Gp/LP+e7wa8TJGP/1OH2n+z9MFU5126pE1 saadullah946@gmail.com
+helm create my-app-chart
+kubectl logs -f -l app.kubernetes.io/instance=updater -n argocd
+craete token on docker hub
+dckr_pat_qKeqMBdP6vLrewyuc_PJh7JpdQ0
+cat /home/saad/.ssh/id_ed2519 (for private repo secret yaml)
