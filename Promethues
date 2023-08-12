@@ -22,8 +22,8 @@
    kubectl port-forward deploy/kube-prometheus-kube-prome-operator  -n prometheus
    kubectl port-forward kube-prometheus-kube-prome-operator  -n prometheus
    kubectl get po -n prometheus
-   kubectl port-forward kube-prometheus-kube-prome-operator  -n prometheus
-   kubectl port-forward prometheus-kube-prometheus-kube-prome-prometheus-  -n prometheus
+   kubectl port-forward kube-prometheus-kube-prome-operator  9090 -n prometheus
+   kubectl port-forward prometheus-kube-prometheus-kube-prome-prometheus 9090 -n prometheus
    kubectl get servicemonitor -n prometheus
    kubectl get crd
    kubectl get crd prometheuses.monitoring.coreos.com -oyaml | grep -i label
