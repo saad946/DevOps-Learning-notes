@@ -93,8 +93,8 @@ values.yaml
    helm install black prometheus-community/prometheus-blackbox-exporter --values blackbox.yaml -n prometheus
    kubectl get ns
    kubectl delete ns prometheus-blackbox-exporter
-   kubectl port-forward svc/prom-kube-prometheus-stack-prometheus : -n prometheus
-   kubectl port-forward svc/prom-kube-prometheus-stack-prometheus : -n prometheus
+   kubectl port-forward svc/prom-kube-prometheus-stack-prometheus 9090:9090 -n prometheus
+   kubectl port-forward svc/prom-kube-prometheus-stack-prometheus 9090:9090 -n prometheus
    kubectl create ns posting-service
    kubectl create -f test.yaml -n posting-service
   helm uninstall prom -n  prometheus
